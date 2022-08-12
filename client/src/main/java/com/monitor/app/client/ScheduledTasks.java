@@ -15,13 +15,12 @@ import oshi.SystemInfo;
 @Slf4j
 public class ScheduledTasks {
 
-    private CpuServiceImpl cpuService = new CpuServiceImpl(WebClient.builder());
-    private OsServiceImpl osService = new OsServiceImpl();
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private final CpuServiceImpl cpuService = new CpuServiceImpl(WebClient.builder());
+    private final OsServiceImpl osService = new OsServiceImpl();
 
     @Scheduled(fixedRate = 60000)
     public void monitorInfo() {
-        log.info("The time is now {}", dateFormat.format(new Date()));
+
         log.info(cpuService.monitorCpuInfo().toString());
         //log.info(osService.monitorOsInfo().toString());
     }

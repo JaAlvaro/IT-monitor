@@ -16,11 +16,7 @@ import java.util.List;
 @Slf4j
 public class OsServiceImpl implements OsService {
 
-    private final OperatingSystem os_utils;
-
-    public OsServiceImpl() {
-        this.os_utils = new SystemInfo().getOperatingSystem();
-    }
+    private final OperatingSystem os_utils = new SystemInfo().getOperatingSystem();
 
     @Override
     public Os getOsInfo() {
@@ -47,8 +43,7 @@ public class OsServiceImpl implements OsService {
                     .getInputStream())).lines()
                     .filter(s -> !(s.contains("Name") ||
                             !(s.contains("a") || s.contains("e") || s.contains("i") || s.contains("o") || s.contains("u"))))
-                    //.peek(System.out::println)
-                    .map(line -> line.replace("  ", ""))
+                    .map(String::trim)
                     .toList();
         } catch (IOException e) {
             log.error("Error while obtaining list of installed programs", e );

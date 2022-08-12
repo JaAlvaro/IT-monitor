@@ -1,4 +1,4 @@
-package com.monitor.app.client.model;
+package com.monitor.app.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -54,3 +54,4 @@ public class Cpu {
      */
     private String overload;
 }
+

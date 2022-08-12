@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
+import static org.springframework.web.reactive.function.server.RequestPredicates.POST;
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
 @Configuration
@@ -13,7 +14,7 @@ public class RouterFunctionsConfig {
 
     @Bean
     public RouterFunction<ServerResponse> routes(CpuHandler handler){
-        return null;
+        return route(POST("/v1/cpu"), handler::handleCpuPostRequest);
         /*
         return route(GET("/api/v1/productos"), handler::listar)
                 .andRoute(GET("/api/v2/productos/{id}"), handler::ver)

@@ -10,8 +10,16 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 public class Os {
-    //wmic bios get serialnumber
-    //wmic baseboard get serialnumber
+
+    /**
+     * The machine id
+     */
+    private String machineId;
+
+    /**
+     * The time stamp
+     */
+    private String timeStamp;
 
     /**
      * The os type
