@@ -1,4 +1,4 @@
-package com.monitor.app;
+package com.monitor.app.web;
 
 import com.monitor.app.handler.CpuHandler;
 import org.springframework.context.annotation.Bean;

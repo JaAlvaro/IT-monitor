@@ -1,6 +1,7 @@
 package com.monitor.app.client.util;
 
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,7 +24,7 @@ public class Utils {
      */
     public static HttpHeaders buildHttpHeaders(String channel) {
         var httpHeaders = new HttpHeaders();
-        httpHeaders.add("Machine-id", getMachineId());
+        httpHeaders.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
         httpHeaders.add("Channel", channel);
         return httpHeaders;
     }
@@ -34,16 +35,16 @@ public class Utils {
      * @return the machine id
      */
     public static String getMachineId() {
-        //wmic bios get serialnumber
         try {
             return new BufferedReader(new InputStreamReader(Runtime.getRuntime()
+                    ////wmic bios get serialnumber
                     .exec("wmic baseboard get serialnumber")
                     .getInputStream())).lines()
-                    .reduce((header, value) -> value)
+                    .filter(str -> !(str.contains("Serial") || str.isEmpty()))
                     .map(String::trim)
-                    .orElse("");
+                    .toList().get(0);
         } catch (IOException e) {
-            return "";
+            throw new NullPointerException("ERROR: Machine ID cannot be obtained.");
         }
     }
 

@@ -1,56 +1,25 @@
 package com.monitor.app.client.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.ToString;
 
+/**
+ * @param machineId         The machine id
+ * @param timeStamp         The time stamp
+ * @param name              The name
+ * @param microarchitecture The microarquitecture
+ * @param logicalCores      The number of logical cores
+ * @param physicalCores     The number of physical cores
+ * @param temperature       The temperature
+ * @param load              The usage load
+ */
 @Builder
-@AllArgsConstructor
-@ToString
-public class Cpu {
+public record Cpu(String machineId,
+                  String timeStamp,
+                  String name,
+                  String microarchitecture,
+                  String logicalCores,
+                  String physicalCores,
+                  String temperature,
+                  String load) {
 
-    /**
-     * The machine id
-     */
-    private String machineId;
-
-    /**
-     * The time stamp
-     */
-    private String timeStamp;
-
-    /**
-     * The name
-     */
-    private String name;
-
-    /**
-     * The microarquitecture
-     */
-    private String microarchitecture;
-
-    /**
-     * The number of logical cores
-     */
-    private String logicalCores;
-
-    /**
-     * The number of physical cores
-     */
-    private String physicalCores;
-
-    /**
-     * The maximum frequency
-     */
-    private String maxFrequency;
-
-    /**
-     * The temperature
-     */
-    private String temperature;
-
-    /**
-     * The usage overload
-     */
-    private String overload;
 }

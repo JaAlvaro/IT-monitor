@@ -16,7 +16,8 @@ public class CpuServiceImpl implements CpuService {
 
     @Override
     public Mono<String> save(Cpu cpu) {
-        return null;
+        log.info("SUCCESS - Saved CPU: " + cpu);
+        return Mono.just("SUCCESS - Saved CPU");
     }
 
     @Override

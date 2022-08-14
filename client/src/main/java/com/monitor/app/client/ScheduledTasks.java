@@ -20,8 +20,9 @@ public class ScheduledTasks {
 
     @Scheduled(fixedRate = 60000)
     public void monitorInfo() {
-
-        log.info(cpuService.monitorCpuInfo().toString());
+        cpuService.monitorCpuInfo()
+                .doOnNext(log::info)
+                .subscribe();
         //log.info(osService.monitorOsInfo().toString());
     }
 

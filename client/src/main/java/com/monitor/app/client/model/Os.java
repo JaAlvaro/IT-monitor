@@ -1,78 +1,37 @@
 package com.monitor.app.client.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.ToString;
 
 import java.util.List;
 
+/**
+ * @param machineId    The machine id
+ * @param timeStamp    The time stamp
+ * @param family       The os type
+ * @param version      The os name
+ * @param manufacturer The manufacturer
+ * @param user         The user logged
+ * @param processCount The process count
+ * @param threadCount  The thread count
+ * @param bootTime     The boot time
+ * @param upTime       The uptime
+ * @param hostname     The hostname
+ * @param bitness      The bitness
+ * @param programs     The list of programs
+ */
 @Builder
-@AllArgsConstructor
-@ToString
-public class Os {
+public record Os(String machineId,
+                 String timeStamp,
+                 String family,
+                 String version,
+                 String manufacturer,
+                 String user,
+                 String processCount,
+                 String threadCount,
+                 String bootTime,
+                 String upTime,
+                 String hostname,
+                 String bitness,
+                 List<String> programs) {
 
-    /**
-     * The machine id
-     */
-    private String machineId;
-
-    /**
-     * The time stamp
-     */
-    private String timeStamp;
-
-    /**
-     * The os type
-     */
-    private String family;
-
-    /**
-     * The os name
-     */
-    private String version;
-
-    /**
-     * The manufacturer
-     */
-    private String manufacturer;
-
-    /**
-     * The user logged
-     */
-    private String user;
-
-    /**
-     * The process count
-     */
-    private String processCount;
-
-    /**
-     * The thread count
-     */
-    private String threadCount;
-
-    /**
-     * The boot time
-     */
-    private String bootTime;
-
-    /**
-     * The up time
-     */
-    private String upTime;
-
-    /**
-     * The hostname
-     */
-    private String hostname;
-
-    /**
-     * The bitness
-     */
-    private String bitness;
-
-    /**
-     * The list of programs
-     */
-    private List<String> programs;
 }
