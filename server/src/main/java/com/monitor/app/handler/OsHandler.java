@@ -1,8 +1,9 @@
 package com.monitor.app.handler;
 
 import com.monitor.app.model.Cpu;
-import com.monitor.app.service.impl.CpuServiceImpl;
+import com.monitor.app.model.Os;
 import com.monitor.app.service.impl.MachineServiceImpl;
+import com.monitor.app.service.impl.OsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -17,10 +18,10 @@ import static org.springframework.web.reactive.function.server.ServerResponse.ok
  * The type Cpu handler.
  */
 @Component
-public class CpuHandler {
+public class OsHandler {
 
     @Autowired
-    private CpuServiceImpl cpuService;
+    private OsServiceImpl osService;
 
     @Autowired
     private MachineServiceImpl machineService;
@@ -31,22 +32,22 @@ public class CpuHandler {
      * @param serverRequest the server request
      * @return the mono
      */
-    public Mono<ServerResponse> handleCpuPostRequest(ServerRequest serverRequest) {
+    public Mono<ServerResponse> handleOsPostRequest(ServerRequest serverRequest) {
 
-        return serverRequest.bodyToMono(Cpu.class)
+        return serverRequest.bodyToMono(Os.class)
                 .filter(this::validateRequest)
-                .flatMap(cpuService::save)
+                .flatMap(osService::save)
                 .flatMap(str -> ok().bodyValue(str))
                 .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.BAD_REQUEST, "ERROR - Machine ID given has not been registered yet.")));
     }
 
     /**
-     * Method to check if machineID from CpuInfo request exists
+     * Method to check if machineID from OsInfo request exists
      *
-     * @param cpuInfo the cpuInfo
+     * @param osInfo the osInfo
      * @return the boolean
      */
-    private boolean validateRequest(Cpu cpuInfo) {
-        return machineService.checkId(cpuInfo.machineId());
+    private boolean validateRequest(Os osInfo) {
+        return machineService.checkId(osInfo.machineId());
     }
 }

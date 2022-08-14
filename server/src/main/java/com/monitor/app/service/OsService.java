@@ -1,31 +1,32 @@
 package com.monitor.app.service;
 
 import com.monitor.app.model.Cpu;
+import com.monitor.app.model.Os;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
- * The interface Cpu service.
+ * The interface Os service.
  */
-public interface CpuService {
+public interface OsService {
 
     /**
      * Save mono.
      *
-     * @param cpu the cpu
+     * @param os the os
      * @return the mono
      */
-    Mono<String> save(Cpu cpu);
+    Mono<String> save(Os os);
 
     /**
      * Find all flux.
      *
      * @return the flux
      */
-    Flux<Cpu> findAll();
+    Flux<Os> findAll();
 
     /**
-     * Delete mono.
+     * Delete all mono.
      *
      * @param machineId the machine id
      * @return the mono

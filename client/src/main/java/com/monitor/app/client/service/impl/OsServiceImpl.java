@@ -3,24 +3,46 @@ package com.monitor.app.client.service.impl;
 import com.monitor.app.client.model.Os;
 import com.monitor.app.client.service.OsService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
+import org.springframework.web.reactive.function.client.WebClient;
 import oshi.SystemInfo;
 import oshi.software.os.OperatingSystem;
+import reactor.core.publisher.Mono;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.List;
 
+import static com.monitor.app.client.util.Constants.osUrl;
+import static com.monitor.app.client.util.Utils.*;
+
+/**
+ * The type Os service.
+ */
 @Service
 @Slf4j
 public class OsServiceImpl implements OsService {
 
     private final OperatingSystem os_utils = new SystemInfo().getOperatingSystem();
 
+    private final WebClient webClient;
+
+    public OsServiceImpl(WebClient.Builder webClientBuilder) {
+        webClient = webClientBuilder.build();
+    }
+
     @Override
-    public Os getOsInfo() {
+    public Mono<String> monitorOsInfo() {
+        return Mono.just(buildOsInfo())
+                .flatMap(this::sendOsInfo);
+    }
+
+    private Os buildOsInfo() {
         return Os.builder()
+                .machineId(getMachineId())
+                .timeStamp(getDatetime())
                 .family(os_utils.getFamily())
                 .version(os_utils.getVersionInfo().toString())
                 .manufacturer(os_utils.getManufacturer())
@@ -37,17 +59,26 @@ public class OsServiceImpl implements OsService {
 
     private List<String> getInstalledPrograms() {
         try {
-            return new BufferedReader(new InputStreamReader(Runtime.getRuntime()
-                    //.exec("powershell -command \"Get-ItemProperty HKLM:\\Software\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\* | Select-Object DisplayName \"")
-                    .exec("wmic product get name")
-                    .getInputStream())).lines()
-                    .filter(s -> !(s.contains("Name") ||
-                            !(s.contains("a") || s.contains("e") || s.contains("i") || s.contains("o") || s.contains("u"))))
-                    .map(String::trim)
-                    .toList();
+            //.exec("powershell -command \"Get-ItemProperty HKLM:\\Software\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\* | Select-Object DisplayName \"")
+            return getCmdOutputList("wmic product get name", "Name");
         } catch (IOException e) {
-            log.error("Error while obtaining list of installed programs", e );
+            log.error("Error while obtaining list of installed programs", e);
             return List.of();
         }
+    }
+
+    private Mono<String> sendOsInfo(Os osInfo) {
+        log.info("URL: " + osUrl);
+        log.info("Sending Os... " + osInfo);
+        return webClient.post()
+                .uri(osUrl)
+                .headers(h -> h.addAll(buildHttpHeaders("OS")))
+                .bodyValue(osInfo)
+                .retrieve()
+                .onStatus(HttpStatus::is4xxClientError, e ->
+                        Mono.error(new HttpClientErrorException(HttpStatus.BAD_REQUEST, "ERROR - Client error while posting OS Info. ")))
+                .onStatus(HttpStatus::is5xxServerError, e ->
+                        Mono.error(new HttpServerErrorException(HttpStatus.INTERNAL_SERVER_ERROR, "ERROR - Server error while posting OS Info")))
+                .bodyToMono(String.class);
     }
 }

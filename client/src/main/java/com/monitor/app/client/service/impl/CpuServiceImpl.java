@@ -3,21 +3,24 @@ package com.monitor.app.client.service.impl;
 import com.monitor.app.client.model.Cpu;
 import com.monitor.app.client.service.CpuService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.reactive.function.client.WebClient;
 import oshi.SystemInfo;
 import oshi.hardware.CentralProcessor;
 import oshi.hardware.Sensors;
 import reactor.core.publisher.Mono;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 import static com.monitor.app.client.util.Constants.cpuUrl;
 import static com.monitor.app.client.util.Utils.*;
 
+/**
+ * The type Cpu service.
+ */
 @Service
 @Slf4j
 public class CpuServiceImpl implements CpuService {
@@ -28,6 +31,11 @@ public class CpuServiceImpl implements CpuService {
 
     private final WebClient webClient;
 
+    /**
+     * Instantiates a new Cpu service.
+     *
+     * @param webClientBuilder the web client builder
+     */
     public CpuServiceImpl(WebClient.Builder webClientBuilder) {
         webClient = webClientBuilder.build();
     }
@@ -57,22 +65,19 @@ public class CpuServiceImpl implements CpuService {
         log.info("Sending Cpu... " + cpuInfo);
         return webClient.post()
                 .uri(cpuUrl)
-                .headers(h -> h.addAll(buildHttpHeaders("cpu")))
+                .headers(h -> h.addAll(buildHttpHeaders("CPU")))
                 .bodyValue(cpuInfo)
                 .retrieve()
+                .onStatus(HttpStatus::is4xxClientError, e ->
+                        Mono.error(new HttpClientErrorException(HttpStatus.BAD_REQUEST, "ERROR - Client error while posting CPU Info. ")))
+                .onStatus(HttpStatus::is5xxServerError, e ->
+                        Mono.error(new HttpServerErrorException(HttpStatus.INTERNAL_SERVER_ERROR, "ERROR - Server error while posting CPU Info")))
                 .bodyToMono(String.class);
     }
 
     private String getCpuLoad() {
         try {
-            return new BufferedReader(new InputStreamReader(Runtime.getRuntime()
-                    ////wmic bios get serialnumber
-                    .exec("wmic cpu get loadpercentage")
-                    .getInputStream())).lines()
-                    .filter(str -> !(str.contains("Load") || str.isEmpty()))
-                    .map(String::trim)
-                    .map(str -> str.concat("%"))
-                    .toList().get(0);
+            return getCmdOutputLine("wmic cpu get loadpercentage", "Load") + "%";
         } catch (IOException e) {
             log.error("Cpu load cannot be obtained.");
             return "0%";

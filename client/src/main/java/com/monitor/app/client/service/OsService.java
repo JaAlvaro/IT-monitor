@@ -1,17 +1,15 @@
 package com.monitor.app.client.service;
 
 import com.monitor.app.client.model.Os;
+import reactor.core.publisher.Mono;
 
 /**
  * The interface Os service.
  */
 public interface OsService {
 
-
     /**
-     * Gets os info.
-     *
-     * @return the os info
+     * Send os info.
      */
-    Os getOsInfo();
+    Mono<String> monitorOsInfo();
 }

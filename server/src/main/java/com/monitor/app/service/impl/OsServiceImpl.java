@@ -1,7 +1,9 @@
 package com.monitor.app.service.impl;
 
 import com.monitor.app.model.Cpu;
+import com.monitor.app.model.Os;
 import com.monitor.app.service.CpuService;
+import com.monitor.app.service.OsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -9,19 +11,21 @@ import reactor.core.publisher.Mono;
 
 @Service
 @Slf4j
-public class CpuServiceImpl implements CpuService {
+public class OsServiceImpl implements OsService {
 
     //TODO JDBC
     //private JDBC dbConnection;
 
+
     @Override
-    public Mono<String> save(Cpu cpu) {
-        log.info("SUCCESS - Saved CPU: " + cpu);
-        return Mono.just("SUCCESS - CPU received and saved");
+    public Mono<String> save(Os os) {
+        //TODO connection database
+        log.info("SUCCESS - Saved OS: " + os);
+        return Mono.just("SUCCESS - OS received and saved");
     }
 
     @Override
-    public Flux<Cpu> findAll() {
+    public Flux<Os> findAll() {
         return null;
     }
 
@@ -29,4 +33,5 @@ public class CpuServiceImpl implements CpuService {
     public Mono<Void> deleteAll(String machineId) {
         return null;
     }
+
 }

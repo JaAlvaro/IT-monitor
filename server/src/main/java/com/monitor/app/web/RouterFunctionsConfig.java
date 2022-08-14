@@ -1,6 +1,7 @@
 package com.monitor.app.web;
 
 import com.monitor.app.handler.CpuHandler;
+import com.monitor.app.handler.OsHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.server.RouterFunction;
@@ -13,7 +14,7 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 public class RouterFunctionsConfig {
 
     @Bean
-    public RouterFunction<ServerResponse> routes(CpuHandler handler){
+    public RouterFunction<ServerResponse> cpuRoutes(CpuHandler handler){
         return route(POST("/v1/cpu"), handler::handleCpuPostRequest);
         /*
         return route(GET("/api/v1/productos"), handler::listar)
@@ -22,7 +23,11 @@ public class RouterFunctionsConfig {
                 .andRoute(PUT("/api/v2/productos/{id}"), handler::editar)
                 .andRoute(DELETE("/api/v2/productos/{id}"), handler::eliminar)
                 .andRoute(POST("/api/v2/productos/upload/{id}"), handler::upload);
-
          */
+    }
+
+    @Bean
+    public RouterFunction<ServerResponse> osRoutes(OsHandler handler){
+        return route(POST("/v1/os"), handler::handleOsPostRequest);
     }
 }

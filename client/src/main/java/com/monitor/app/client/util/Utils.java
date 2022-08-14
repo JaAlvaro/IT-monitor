@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import static com.monitor.app.client.util.Constants.datetimePattern;
 
@@ -36,13 +37,8 @@ public class Utils {
      */
     public static String getMachineId() {
         try {
-            return new BufferedReader(new InputStreamReader(Runtime.getRuntime()
-                    ////wmic bios get serialnumber
-                    .exec("wmic baseboard get serialnumber")
-                    .getInputStream())).lines()
-                    .filter(str -> !(str.contains("Serial") || str.isEmpty()))
-                    .map(String::trim)
-                    .toList().get(0);
+            //wmic bios get serialnumber
+            return getCmdOutputLine("wmic baseboard get serialnumber", "Serial");
         } catch (IOException e) {
             throw new NullPointerException("ERROR: Machine ID cannot be obtained.");
         }
@@ -55,5 +51,35 @@ public class Utils {
      */
     public static String getDatetime() {
         return new SimpleDateFormat(datetimePattern).format(new Date());
+    }
+
+
+    /**
+     * Gets cmd output line.
+     *
+     * @param command the command
+     * @param header  the header
+     * @return the cmd output line
+     * @throws IOException the io exception
+     */
+    public static String getCmdOutputLine(String command, String header) throws IOException {
+        return getCmdOutputList(command, header).get(0);
+    }
+
+    /**
+     * Gets cmd output list.
+     *
+     * @param command the command
+     * @param header  the header
+     * @return the cmd output list
+     * @throws IOException the io exception
+     */
+    public static List<String> getCmdOutputList(String command, String header) throws IOException {
+        return new BufferedReader(new InputStreamReader(Runtime.getRuntime()
+                .exec(command)
+                .getInputStream())).lines()
+                .filter(str -> !(str.contains(header) || str.isEmpty()))
+                .map(String::trim)
+                .toList();
     }
 }
