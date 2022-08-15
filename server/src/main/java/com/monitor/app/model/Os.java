@@ -1,7 +1,5 @@
 package com.monitor.app.model;
 
-import lombok.Builder;
-
 import java.util.List;
 
 /**
@@ -19,7 +17,7 @@ import java.util.List;
  * @param bitness      The bitness
  * @param programs     The list of programs
  */
-@Builder
+
 public record Os(String machineId,
                  String timeStamp,
                  String family,
