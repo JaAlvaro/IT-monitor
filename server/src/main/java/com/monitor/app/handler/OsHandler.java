@@ -1,6 +1,5 @@
 package com.monitor.app.handler;
 
-import com.monitor.app.model.Cpu;
 import com.monitor.app.model.Os;
 import com.monitor.app.service.impl.MachineServiceImpl;
 import com.monitor.app.service.impl.OsServiceImpl;

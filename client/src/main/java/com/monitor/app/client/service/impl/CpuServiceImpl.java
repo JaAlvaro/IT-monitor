@@ -69,7 +69,7 @@ public class CpuServiceImpl implements CpuService {
                 .bodyValue(cpuInfo)
                 .retrieve()
                 .onStatus(HttpStatus::is4xxClientError, e ->
-                        Mono.error(new HttpClientErrorException(HttpStatus.BAD_REQUEST, "ERROR - Client error while posting CPU Info. ")))
+                        Mono.error(new HttpClientErrorException(HttpStatus.BAD_REQUEST, "ERROR - Client error while posting CPU Info. Please, make sure you have registered this machine with the ID " + getMachineId())))
                 .onStatus(HttpStatus::is5xxServerError, e ->
                         Mono.error(new HttpServerErrorException(HttpStatus.INTERNAL_SERVER_ERROR, "ERROR - Server error while posting CPU Info")))
                 .bodyToMono(String.class);
