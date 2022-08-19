@@ -1,5 +1,7 @@
 package com.monitor.app.service;
 
+import reactor.core.publisher.Mono;
+
 /**
  * The interface Machine service.
  */
@@ -11,5 +13,5 @@ public interface MachineService {
      * @param id the id
      * @return the boolean
      */
-    boolean checkId(String id);
+    Mono<Boolean> checkId(String id);
 }

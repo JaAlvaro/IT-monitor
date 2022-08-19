@@ -34,19 +34,10 @@ public class OsHandler {
     public Mono<ServerResponse> handleOsPostRequest(ServerRequest serverRequest) {
 
         return serverRequest.bodyToMono(Os.class)
-                .filter(this::validateRequest)
+                .flatMap(os -> machineService.checkId(os.machineId()).flatMap(isValid -> isValid? Mono.just(os) : Mono.empty()))
                 .flatMap(osService::save)
                 .flatMap(str -> ok().bodyValue(str))
                 .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.BAD_REQUEST, "ERROR - Machine ID given has not been registered yet.")));
     }
 
-    /**
-     * Method to check if machineID from OsInfo request exists
-     *
-     * @param osInfo the osInfo
-     * @return the boolean
-     */
-    private boolean validateRequest(Os osInfo) {
-        return machineService.checkId(osInfo.machineId());
-    }
 }

@@ -25,9 +25,9 @@ import static com.monitor.app.client.util.Utils.*;
 @Slf4j
 public class CpuServiceImpl implements CpuService {
 
-    private final CentralProcessor cpu_utils = new SystemInfo().getHardware().getProcessor();
+    private final CentralProcessor cpu_utils;
 
-    private final Sensors sensor_utils = new SystemInfo().getHardware().getSensors();
+    private final Sensors sensor_utils;
 
     private final WebClient webClient;
 
@@ -38,6 +38,8 @@ public class CpuServiceImpl implements CpuService {
      */
     public CpuServiceImpl(WebClient.Builder webClientBuilder) {
         webClient = webClientBuilder.build();
+        cpu_utils = new SystemInfo().getHardware().getProcessor();
+        sensor_utils = new SystemInfo().getHardware().getSensors();
     }
 
     @Override

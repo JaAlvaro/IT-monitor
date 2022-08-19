@@ -3,6 +3,7 @@ package com.monitor.app.handler;
 import com.monitor.app.model.Cpu;
 import com.monitor.app.service.impl.CpuServiceImpl;
 import com.monitor.app.service.impl.MachineServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -17,6 +18,7 @@ import static org.springframework.web.reactive.function.server.ServerResponse.ok
  * The type Cpu handler.
  */
 @Component
+@Slf4j
 public class CpuHandler {
 
     @Autowired
@@ -34,19 +36,11 @@ public class CpuHandler {
     public Mono<ServerResponse> handleCpuPostRequest(ServerRequest serverRequest) {
 
         return serverRequest.bodyToMono(Cpu.class)
-                .filter(this::validateRequest)
+                .flatMap(cpu -> machineService.checkId(cpu.machineId()).flatMap(isValid -> isValid? Mono.just(cpu) : Mono.empty()))
                 .flatMap(cpuService::save)
                 .flatMap(str -> ok().bodyValue(str))
                 .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.BAD_REQUEST, "ERROR - Machine ID given has not been registered yet.")));
     }
 
-    /**
-     * Method to check if machineID from CpuInfo request exists
-     *
-     * @param cpuInfo the cpuInfo
-     * @return the boolean
-     */
-    private boolean validateRequest(Cpu cpuInfo) {
-        return machineService.checkId(cpuInfo.machineId());
-    }
+
 }

@@ -2,14 +2,19 @@ package com.monitor.app.service.impl;
 
 import com.monitor.app.model.Machine;
 import com.monitor.app.service.MachineService;
+import com.monitor.app.util.Util;
+import dev.miku.r2dbc.mysql.MySqlConnection;
+import dev.miku.r2dbc.mysql.MySqlConnectionConfiguration;
+import dev.miku.r2dbc.mysql.MySqlConnectionFactory;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
+import reactor.core.publisher.Mono;
 
-import java.util.Collection;
+import java.time.Duration;
+import java.time.ZoneId;
 import java.util.List;
-import java.util.Map;
 
 /**
  * The type Machine service.
@@ -18,21 +23,16 @@ import java.util.Map;
 @Slf4j
 public class MachineServiceImpl implements MachineService {
 
-    @Autowired
-    JdbcTemplate jdbcTemplate;
-    Collection<Map<String, Object>> rows = jdbcTemplate.queryForList("SELECT ID FROM machine");
-
-    /*
-    private final List<Machine> machineRepo = List.of(
-            new Machine("DBE2C1100314005DC830A1", "JaAlvaro"),
-            new Machine("PKWLF018JEW2PZ", "JaAlvaro"));
-*/
     @Override
-    public boolean checkId(String id) {
+    public Mono<Boolean> checkId(String id) {
 
-        return rows.stream()
-                .map(Machine::machineId)
-                .anyMatch(machineId -> machineId.equals(id));
+        return Util.getConnection()
+                .flatMapMany(conn -> conn.createStatement("SELECT ID FROM machine WHERE ID = '" + id + "'").execute())
+                .flatMap(mySqlResult -> mySqlResult.map((row, metadata) -> row.get("id", String.class)))
+                .next()
+                .map(row -> row.equals(id));
     }
+
+
 }
 

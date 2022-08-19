@@ -13,9 +13,6 @@ import reactor.core.publisher.Mono;
 @Slf4j
 public class OsServiceImpl implements OsService {
 
-    //TODO JDBC
-    //private JDBC dbConnection;
-
 
     @Override
     public Mono<String> save(Os os) {
