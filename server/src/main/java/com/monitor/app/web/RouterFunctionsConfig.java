@@ -2,6 +2,7 @@ package com.monitor.app.web;
 
 import com.monitor.app.handler.CpuHandler;
 import com.monitor.app.handler.OsHandler;
+import com.monitor.app.handler.ProgramHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.server.RouterFunction;
@@ -29,5 +30,10 @@ public class RouterFunctionsConfig {
     @Bean
     public RouterFunction<ServerResponse> osRoutes(OsHandler handler){
         return route(POST("/v1/os"), handler::handleOsPostRequest);
+    }
+
+    @Bean
+    public RouterFunction<ServerResponse> programRoutes(ProgramHandler handler){
+        return route(POST("/v1/program"), handler::handleProgramPostRequest);
     }
 }

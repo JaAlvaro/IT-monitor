@@ -15,14 +15,16 @@ public interface CpuService {
      * @param cpu the cpu
      * @return the mono
      */
-    Mono<String> save(Cpu cpu);
+    Mono<String> insert(Cpu cpu);
+
 
     /**
      * Find all flux.
      *
+     * @param machineId the machine id
      * @return the flux
      */
-    Flux<Cpu> findAll();
+    Flux<Cpu> findAll(String machineId);
 
     /**
      * Delete mono.

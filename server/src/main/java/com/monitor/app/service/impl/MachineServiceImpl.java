@@ -3,18 +3,9 @@ package com.monitor.app.service.impl;
 import com.monitor.app.model.Machine;
 import com.monitor.app.service.MachineService;
 import com.monitor.app.util.Util;
-import dev.miku.r2dbc.mysql.MySqlConnection;
-import dev.miku.r2dbc.mysql.MySqlConnectionConfiguration;
-import dev.miku.r2dbc.mysql.MySqlConnectionFactory;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
 import reactor.core.publisher.Mono;
-
-import java.time.Duration;
-import java.time.ZoneId;
-import java.util.List;
 
 /**
  * The type Machine service.
@@ -24,6 +15,11 @@ import java.util.List;
 public class MachineServiceImpl implements MachineService {
 
     @Override
+    public Mono<String> insert(Machine machine) {
+        return null;
+    }
+
+    @Override
     public Mono<Boolean> checkId(String id) {
 
         return Util.getConnection()
@@ -31,6 +27,16 @@ public class MachineServiceImpl implements MachineService {
                 .flatMap(mySqlResult -> mySqlResult.map((row, metadata) -> row.get("id", String.class)))
                 .next()
                 .map(row -> row.equals(id));
+    }
+
+    @Override
+    public Mono<Machine> find(String machineId) {
+        return null;
+    }
+
+    @Override
+    public Mono<Void> delete(String machineId) {
+        return null;
     }
 
 

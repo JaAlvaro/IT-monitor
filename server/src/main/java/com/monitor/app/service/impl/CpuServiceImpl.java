@@ -2,26 +2,35 @@ package com.monitor.app.service.impl;
 
 import com.monitor.app.model.Cpu;
 import com.monitor.app.service.CpuService;
+import com.monitor.app.util.Util;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import static java.lang.String.format;
+
 @Service
 @Slf4j
 public class CpuServiceImpl implements CpuService {
 
-    //TODO JDBC
-    //private JDBC dbConnection;
-
     @Override
-    public Mono<String> save(Cpu cpu) {
-        log.info("SUCCESS - Saved CPU: " + cpu);
-        return Mono.just("SUCCESS - CPU received and saved");
+    public Mono<String> insert(Cpu cpu) {
+
+        return Util.getConnection()
+                .flatMapMany(conn -> conn.createStatement(format("INSERT INTO CPU VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
+                                cpu.machineId(), cpu.timeStamp(), cpu.name(), cpu.microarchitecture(), cpu.logicalCores(),
+                                cpu.physicalCores(), cpu.temperature(), cpu.load()))
+                .execute())
+                .next()
+                .map(result -> {
+                    log.info("SUCCESS - Saved CPU: " + cpu);
+                    return "SUCCESS - CPU received and saved";
+                });
     }
 
     @Override
-    public Flux<Cpu> findAll() {
+    public Flux<Cpu> findAll(String machineId) {
         return null;
     }
 

@@ -1,21 +1,21 @@
 package com.monitor.app.service;
 
-import com.monitor.app.model.Os;
+import com.monitor.app.model.ProgramList;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
- * The interface Os service.
+ * The interface Program service.
  */
-public interface OsService {
+public interface ProgramService {
 
     /**
      * Save mono.
      *
-     * @param os the os
+     * @param programList the program list
      * @return the mono
      */
-    Mono<String> insert(Os os);
+    Mono<String> insert(ProgramList programList);
 
     /**
      * Find flux.
@@ -23,7 +23,7 @@ public interface OsService {
      * @param machineId the machine id
      * @return the flux
      */
-    Flux<Os> find(String machineId);
+    Flux<String> find(String machineId);
 
     /**
      * Delete mono.

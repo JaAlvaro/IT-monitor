@@ -14,7 +14,7 @@ import reactor.core.publisher.Mono;
 import static org.springframework.web.reactive.function.server.ServerResponse.ok;
 
 /**
- * The type Cpu handler.
+ * The type Os handler.
  */
 @Component
 public class OsHandler {
@@ -26,7 +26,7 @@ public class OsHandler {
     private MachineServiceImpl machineService;
 
     /**
-     * Handle cpu post request mono.
+     * Handle os post request mono.
      *
      * @param serverRequest the server request
      * @return the mono
@@ -34,8 +34,8 @@ public class OsHandler {
     public Mono<ServerResponse> handleOsPostRequest(ServerRequest serverRequest) {
 
         return serverRequest.bodyToMono(Os.class)
-                .flatMap(os -> machineService.checkId(os.machineId()).flatMap(isValid -> isValid? Mono.just(os) : Mono.empty()))
-                .flatMap(osService::save)
+                .flatMap(os -> machineService.checkId(os.machineId()).flatMap(isValid -> isValid ? Mono.just(os) : Mono.empty()))
+                .flatMap(osService::insert)
                 .flatMap(str -> ok().bodyValue(str))
                 .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.BAD_REQUEST, "ERROR - Machine ID given has not been registered yet.")));
     }

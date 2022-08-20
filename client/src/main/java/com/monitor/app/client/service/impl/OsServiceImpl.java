@@ -46,25 +46,10 @@ public class OsServiceImpl implements OsService {
                 .family(os_utils.getFamily())
                 .version(os_utils.getVersionInfo().toString())
                 .manufacturer(os_utils.getManufacturer())
-                .processCount(String.valueOf(os_utils.getProcessCount()))
-                .threadCount(String.valueOf(os_utils.getThreadCount()))
-                .bootTime(String.valueOf(os_utils.getSystemBootTime()))
-                .upTime(String.valueOf(os_utils.getSystemUptime()))
                 .hostname(os_utils.getNetworkParams().getHostName())
                 .user(System.getProperty("user.name"))
                 .bitness(String.valueOf(os_utils.getBitness()))
-                .programs(getInstalledPrograms())
                 .build();
-    }
-
-    private List<String> getInstalledPrograms() {
-        try {
-            //.exec("powershell -command \"Get-ItemProperty HKLM:\\Software\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\* | Select-Object DisplayName \"")
-            return getCmdOutputList("wmic product get name", "Name");
-        } catch (IOException e) {
-            log.error("Error while obtaining list of installed programs", e);
-            return List.of();
-        }
     }
 
     private Mono<String> sendOsInfo(Os osInfo) {

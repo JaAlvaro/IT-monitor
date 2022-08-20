@@ -1,7 +1,5 @@
 package com.monitor.app.model;
 
-import java.util.List;
-
 /**
  * @param machineId    The machine id
  * @param timeStamp    The time stamp
@@ -9,13 +7,8 @@ import java.util.List;
  * @param version      The os name
  * @param manufacturer The manufacturer
  * @param user         The user logged
- * @param processCount The process count
- * @param threadCount  The thread count
- * @param bootTime     The boot time
- * @param upTime       The uptime
  * @param hostname     The hostname
  * @param bitness      The bitness
- * @param programs     The list of programs
  */
 
 public record Os(String machineId,
@@ -24,12 +17,7 @@ public record Os(String machineId,
                  String version,
                  String manufacturer,
                  String user,
-                 String processCount,
-                 String threadCount,
-                 String bootTime,
-                 String upTime,
                  String hostname,
-                 String bitness,
-                 List<String> programs) {
+                 String bitness) {
 
 }

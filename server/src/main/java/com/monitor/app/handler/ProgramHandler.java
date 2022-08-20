@@ -1,9 +1,8 @@
 package com.monitor.app.handler;
 
-import com.monitor.app.model.Cpu;
-import com.monitor.app.service.impl.CpuServiceImpl;
+import com.monitor.app.model.ProgramList;
 import com.monitor.app.service.impl.MachineServiceImpl;
-import lombok.extern.slf4j.Slf4j;
+import com.monitor.app.service.impl.ProgramServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -15,32 +14,30 @@ import reactor.core.publisher.Mono;
 import static org.springframework.web.reactive.function.server.ServerResponse.ok;
 
 /**
- * The type Cpu handler.
+ * The type Program handler.
  */
 @Component
-@Slf4j
-public class CpuHandler {
+public class ProgramHandler {
 
     @Autowired
-    private CpuServiceImpl cpuService;
+    private ProgramServiceImpl programService;
 
     @Autowired
     private MachineServiceImpl machineService;
 
     /**
-     * Handle cpu post request mono.
+     * Handle program list post request mono.
      *
      * @param serverRequest the server request
      * @return the mono
      */
-    public Mono<ServerResponse> handleCpuPostRequest(ServerRequest serverRequest) {
+    public Mono<ServerResponse> handleProgramPostRequest(ServerRequest serverRequest) {
 
-        return serverRequest.bodyToMono(Cpu.class)
-                .flatMap(cpu -> machineService.checkId(cpu.machineId()).flatMap(isValid -> isValid ? Mono.just(cpu) : Mono.empty()))
-                .flatMap(cpuService::insert)
+        return serverRequest.bodyToMono(ProgramList.class)
+                .flatMap(programList -> machineService.checkId(programList.machineId()).flatMap(isValid -> isValid ? Mono.just(programList) : Mono.empty()))
+                .flatMap(programService::insert)
                 .flatMap(str -> ok().bodyValue(str))
                 .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.BAD_REQUEST, "ERROR - Machine ID given has not been registered yet.")));
     }
-
 
 }

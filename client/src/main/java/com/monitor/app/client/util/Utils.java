@@ -78,8 +78,8 @@ public class Utils {
         return new BufferedReader(new InputStreamReader(Runtime.getRuntime()
                 .exec(command)
                 .getInputStream())).lines()
-                .filter(str -> !(str.contains(header) || str.isEmpty()))
                 .map(String::trim)
+                .filter(str -> !(str.contains(header) || str.isEmpty()))
                 .toList();
     }
 }
