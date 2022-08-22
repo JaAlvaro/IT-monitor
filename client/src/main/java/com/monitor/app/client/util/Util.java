@@ -10,12 +10,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import static com.monitor.app.client.util.Constants.datetimePattern;
+import static com.monitor.app.client.util.Constant.DATETIME_PATTERN;
 
 /**
- * The type Utils.
+ * The type Util.
  */
-public class Utils {
+public class Util {
 
     /**
      * Build http headers http headers.
@@ -27,6 +27,7 @@ public class Utils {
         var httpHeaders = new HttpHeaders();
         httpHeaders.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
         httpHeaders.add("Channel", channel);
+        httpHeaders.setBasicAuth("monitor", "monitor");
         return httpHeaders;
     }
 
@@ -50,7 +51,7 @@ public class Utils {
      * @return the datetime
      */
     public static String getDatetime() {
-        return new SimpleDateFormat(datetimePattern).format(new Date());
+        return new SimpleDateFormat(DATETIME_PATTERN).format(new Date());
     }
 
 

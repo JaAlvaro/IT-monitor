@@ -1,7 +1,6 @@
 package com.monitor.app.service;
 
 import com.monitor.app.model.Os;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
@@ -23,7 +22,7 @@ public interface OsService {
      * @param machineId the machine id
      * @return the flux
      */
-    Flux<Os> find(String machineId);
+    Mono<Os> find(String machineId);
 
     /**
      * Delete mono.

@@ -1,5 +1,6 @@
 package com.monitor.app.service;
 
+import com.monitor.app.model.Program;
 import com.monitor.app.model.ProgramList;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -23,7 +24,7 @@ public interface ProgramService {
      * @param machineId the machine id
      * @return the flux
      */
-    Flux<String> find(String machineId);
+    Flux<Program> find(String machineId);
 
     /**
      * Delete mono.

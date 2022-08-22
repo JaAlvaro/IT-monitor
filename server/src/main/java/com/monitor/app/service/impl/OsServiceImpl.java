@@ -4,8 +4,8 @@ import com.monitor.app.model.Os;
 import com.monitor.app.service.OsService;
 import com.monitor.app.util.Util;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import static java.lang.String.format;
@@ -15,6 +15,7 @@ import static java.lang.String.format;
 public class OsServiceImpl implements OsService {
 
     @Override
+    @PreAuthorize("hasRole('MONITOR')")
     public Mono<String> insert(Os os) {
         return Util.getConnection()
                 .flatMapMany(conn -> conn.createBatch()
@@ -30,8 +31,20 @@ public class OsServiceImpl implements OsService {
     }
 
     @Override
-    public Flux<Os> find(String machineId) {
-        return null;
+    public Mono<Os> find(String machineId) {
+        return Util.getConnection()
+                .flatMapMany(conn -> conn.createStatement("SELECT * FROM machine WHERE ID = '" + machineId + "'").execute())
+                .flatMap(mySqlResult -> mySqlResult.map((row, metadata) -> Os.builder()
+                        .machineId(machineId)
+                        .timeStamp(row.get("timestamp", String.class))
+                        .family(row.get("family", String.class))
+                        .version(row.get("version", String.class))
+                        .manufacturer(row.get("manufacturer", String.class))
+                        .user(row.get("user", String.class))
+                        .hostname(row.get("hostname", String.class))
+                        .bitness(row.get("bitness", String.class))
+                        .build()))
+                .next();
     }
 
     @Override

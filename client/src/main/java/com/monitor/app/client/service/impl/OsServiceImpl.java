@@ -12,11 +12,8 @@ import oshi.SystemInfo;
 import oshi.software.os.OperatingSystem;
 import reactor.core.publisher.Mono;
 
-import java.io.IOException;
-import java.util.List;
-
-import static com.monitor.app.client.util.Constants.osUrl;
-import static com.monitor.app.client.util.Utils.*;
+import static com.monitor.app.client.util.Constant.OS_URL;
+import static com.monitor.app.client.util.Util.*;
 
 /**
  * The type Os service.
@@ -53,10 +50,10 @@ public class OsServiceImpl implements OsService {
     }
 
     private Mono<String> sendOsInfo(Os osInfo) {
-        log.info("URL: " + osUrl);
+        log.info("URL: " + OS_URL);
         log.info("Sending Os... " + osInfo);
         return webClient.post()
-                .uri(osUrl)
+                .uri(OS_URL)
                 .headers(h -> h.addAll(buildHttpHeaders("OS")))
                 .bodyValue(osInfo)
                 .retrieve()

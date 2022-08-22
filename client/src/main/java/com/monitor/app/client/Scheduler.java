@@ -13,7 +13,7 @@ import org.springframework.web.reactive.function.client.WebClient;
  */
 @Component
 @Slf4j
-public class ScheduledTasks {
+public class Scheduler {
 
     private final CpuServiceImpl cpuService = new CpuServiceImpl(WebClient.builder());
     private final OsServiceImpl osService = new OsServiceImpl(WebClient.builder());

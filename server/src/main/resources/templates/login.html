@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${titulo}">Insert title here</title>
+    <link rel="stylesheet" href="styles/style.css">
+
+</head>
+<body>
+
+    <h1 th:text="${titulo}"></h1>
+    <!--Header 00188D-->
+
+    <div>Hola IT-Monitor</div>
+
+    <div th:if="${param.error}">
+        Invalid username and password.
+    </div>
+    <div th:if="${param.logout}">
+        You have been logged out.
+    </div>
+    <form th:action="@{/login}" method="post">
+        <div><label> User Name : <input type="text" name="username"/> </label></div>
+        <div><label> Password: <input type="password" name="password"/> </label></div>
+        <div><input type="submit" value="Sign In"/></div>
+    </form>
+
+    <div>
+        <a th:href="@{/register/user}">Regístrate aquí</a>
+    </div>
+<!--Footer-->
+
+</body>
+</html>

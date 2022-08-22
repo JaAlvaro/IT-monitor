@@ -1,5 +1,7 @@
 package com.monitor.app.model;
 
+import lombok.Builder;
+
 /**
  * @param machineId    The machine id
  * @param timeStamp    The time stamp
@@ -10,7 +12,7 @@ package com.monitor.app.model;
  * @param hostname     The hostname
  * @param bitness      The bitness
  */
-
+@Builder
 public record Os(String machineId,
                  String timeStamp,
                  String family,

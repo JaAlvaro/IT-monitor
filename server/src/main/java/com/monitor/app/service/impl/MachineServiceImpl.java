@@ -7,6 +7,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
+import static com.monitor.app.util.Util.getDatetime;
+import static java.lang.String.format;
+
 /**
  * The type Machine service.
  */
@@ -15,13 +18,20 @@ import reactor.core.publisher.Mono;
 public class MachineServiceImpl implements MachineService {
 
     @Override
-    public Mono<String> insert(Machine machine) {
-        return null;
+    public Mono<String> insert(String id) {
+        return Util.getConnection()
+                .flatMapMany(conn -> conn.createBatch()
+                        .add(format("INSERT INTO machine (ID, REGISTER_DATE) VALUES ('%s', '%s')", id, getDatetime()))
+                        .execute())
+                .next()
+                .map(result -> {
+                    log.info("SUCCESS - Saved Machine: " + id);
+                    return "SUCCESS - Machine received and saved";
+                });
     }
 
     @Override
     public Mono<Boolean> checkId(String id) {
-
         return Util.getConnection()
                 .flatMapMany(conn -> conn.createStatement("SELECT ID FROM machine WHERE ID = '" + id + "'").execute())
                 .flatMap(mySqlResult -> mySqlResult.map((row, metadata) -> row.get("id", String.class)))
@@ -30,8 +40,15 @@ public class MachineServiceImpl implements MachineService {
     }
 
     @Override
-    public Mono<Machine> find(String machineId) {
-        return null;
+    public Mono<Machine> find(String id) {
+        return Util.getConnection()
+                .flatMapMany(conn -> conn.createStatement("SELECT * FROM machine WHERE ID = '" + id + "'").execute())
+                .flatMap(mySqlResult -> mySqlResult.map((row, metadata) -> Machine.builder()
+                        .machineId(id)
+                        .register_date(row.get("register_date", String.class))
+                        .timeStamp(row.get("last_timestamp", String.class))
+                        .build()))
+                .next();
     }
 
     @Override

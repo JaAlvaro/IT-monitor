@@ -13,8 +13,8 @@ import reactor.core.publisher.Mono;
 import java.io.IOException;
 import java.util.List;
 
-import static com.monitor.app.client.util.Constants.programUrl;
-import static com.monitor.app.client.util.Utils.*;
+import static com.monitor.app.client.util.Constant.PROGRAM_URL;
+import static com.monitor.app.client.util.Util.*;
 
 @Service
 @Slf4j
@@ -51,10 +51,10 @@ public class ProgramServiceImpl implements ProgramService {
     }
 
     private Mono<String> sendProgramList(ProgramList programList) {
-        log.info("URL: " + programUrl);
+        log.info("URL: " + PROGRAM_URL);
         log.info("Sending Programs... " + programList);
         return webClient.post()
-                .uri(programUrl)
+                .uri(PROGRAM_URL)
                 .headers(h -> h.addAll(buildHttpHeaders("Programs")))
                 .bodyValue(programList)
                 .retrieve()

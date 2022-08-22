@@ -1,5 +1,7 @@
 package com.monitor.app.model;
 
+import lombok.Builder;
+
 /**
  * @param machineId         The machine id
  * @param timeStamp         The time stamp
@@ -10,6 +12,7 @@ package com.monitor.app.model;
  * @param temperature       The temperature
  * @param load              The usage load
  */
+@Builder
 public record Cpu(String machineId,
                   String timeStamp,
                   String name,

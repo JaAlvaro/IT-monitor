@@ -8,13 +8,14 @@ import reactor.core.publisher.Mono;
  */
 public interface MachineService {
 
+
     /**
      * Insert mono.
      *
-     * @param machine the machine
+     * @param machineId the machine id
      * @return the mono
      */
-    Mono<String> insert(Machine machine);
+    Mono<String> insert(String machineId);
 
     /**
      * Check id mono.

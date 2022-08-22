@@ -24,7 +24,7 @@ public interface CpuService {
      * @param machineId the machine id
      * @return the flux
      */
-    Flux<Cpu> findAll(String machineId);
+    Flux<Cpu> find(String machineId);
 
     /**
      * Delete mono.
@@ -32,6 +32,6 @@ public interface CpuService {
      * @param machineId the machine id
      * @return the mono
      */
-    Mono<Void> deleteAll(String machineId);
+    Mono<Void> delete(String machineId);
 
 }

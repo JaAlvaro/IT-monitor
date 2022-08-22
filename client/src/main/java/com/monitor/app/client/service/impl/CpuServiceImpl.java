@@ -15,8 +15,8 @@ import reactor.core.publisher.Mono;
 
 import java.io.IOException;
 
-import static com.monitor.app.client.util.Constants.cpuUrl;
-import static com.monitor.app.client.util.Utils.*;
+import static com.monitor.app.client.util.Constant.CPU_URL;
+import static com.monitor.app.client.util.Util.*;
 
 /**
  * The type Cpu service.
@@ -63,10 +63,10 @@ public class CpuServiceImpl implements CpuService {
     }
 
     private Mono<String> sendCpuInfo(Cpu cpuInfo) {
-        log.info("URL: " + cpuUrl);
+        log.info("URL: " + CPU_URL);
         log.info("Sending Cpu... " + cpuInfo);
         return webClient.post()
-                .uri(cpuUrl)
+                .uri(CPU_URL)
                 .headers(h -> h.addAll(buildHttpHeaders("CPU")))
                 .bodyValue(cpuInfo)
                 .retrieve()
