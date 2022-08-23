@@ -7,7 +7,9 @@ public interface UserService {
 
     Mono<String> insert(User user);
 
-    Mono<User> find(String machineId);
+    Mono<User> find(String username);
 
     Mono<Void> delete(String machineId);
+
+    Mono<Boolean> checkUser(String name);
 }

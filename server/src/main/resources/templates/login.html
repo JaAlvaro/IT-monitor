@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title th:text="${titulo}">Insert title here</title>
@@ -11,23 +11,33 @@
     <h1 th:text="${titulo}"></h1>
     <!--Header 00188D-->
 
-    <div>Hola IT-Monitor</div>
-
-    <div th:if="${param.error}">
-        Invalid username and password.
-    </div>
-    <div th:if="${param.logout}">
-        You have been logged out.
-    </div>
     <form th:action="@{/login}" method="post">
-        <div><label> User Name : <input type="text" name="username"/> </label></div>
-        <div><label> Password: <input type="password" name="password"/> </label></div>
-        <div><input type="submit" value="Sign In"/></div>
+        <fieldset>
+            <legend>IT Monitor Login page</legend>
+            <div th:if="${param.error}">
+                Invalid username and password.
+            </div>
+            <div th:if="${param.logout}">
+                You have been logged out.
+            </div>
+                <label> User Name:</label>
+                <input type="text" name="username"/>
+
+                <label> Password:</label>
+                <input type="password" name="password"/>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn">Log in</button>
+                </div>
+        </fieldset>
+
     </form>
 
-    <div>
-        <a th:href="@{/register/user}">Regístrate aquí</a>
+    <div style="margin: auto">
+        <a th:href="@{/register/user}">Sign up here</a>
     </div>
+
+
 <!--Footer-->
 
 </body>

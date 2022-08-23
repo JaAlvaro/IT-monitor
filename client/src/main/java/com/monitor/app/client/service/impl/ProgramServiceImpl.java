@@ -42,7 +42,6 @@ public class ProgramServiceImpl implements ProgramService {
 
     private List<String> getInstalledPrograms() {
         try {
-            //.exec("powershell -command \"Get-ItemProperty HKLM:\\Software\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\* | Select-Object DisplayName \"")
             return getCmdOutputList("wmic product get name", "Name");
         } catch (IOException e) {
             log.error("Error while obtaining list of installed programs", e);

@@ -33,9 +33,11 @@ CREATE TABLE PROGRAM (MACHINE_ID VARCHAR(32),
                     NAME VARCHAR(128),
                     CONSTRAINT program_pk PRIMARY KEY (MACHINE_ID, NAME));
 
-CREATE TABLE USER (NAME VARCHAR(128),
-                    PASSWORD VARCHAR(128),
+CREATE TABLE USER (NAME VARCHAR(32),
+                    PASSWORD VARCHAR(60),
                     REGISTER_DATE VARCHAR(32),
                     CONSTRAINT user_pk PRIMARY KEY (NAME));
+
+crear query para validar password : select * from user where password = AES_ENCRYPTION... (llamar previamente para conseguir key)
 
 COMMIT;
