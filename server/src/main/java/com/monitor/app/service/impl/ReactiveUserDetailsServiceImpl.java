@@ -7,6 +7,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
+/**
+ * The type Reactive user details service.
+ */
 @Service
 public class ReactiveUserDetailsServiceImpl implements ReactiveUserDetailsService {
 
@@ -16,16 +19,11 @@ public class ReactiveUserDetailsServiceImpl implements ReactiveUserDetailsServic
     @Override
     public Mono<UserDetails> findByUsername(String username) {
         return userService.find(username)
-                .map(user -> {
-                    var aux = user.name();
-                    return User.builder()
-                            .username(user.name())
-                            .password("{bcrypt}" + user.password())
-                            //.password("{noop}")
-                            .roles(user.name().equals("monitor") ? "MONITOR": "USER")
-                            //.roles("MONITOR")
-                            .build();
-                });
+                .map(user -> User.builder()
+                        .username(user.name())
+                        .password("{bcrypt}" + user.password())
+                        .roles(user.name().equals("monitor") ? "MONITOR": "USER")
+                        .build());
     }
 
 }

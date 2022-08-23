@@ -32,12 +32,6 @@ public class MachineServiceImpl implements MachineService {
 
     @Override
     public Mono<Boolean> checkId(String id) {
-        /*return Util.getConnection()
-                .flatMapMany(conn -> conn.createStatement("SELECT ID FROM machine WHERE ID = '" + id + "'").execute())
-                .flatMap(mySqlResult -> mySqlResult.map((row, metadata) -> row.get("id", String.class)))
-                .next()
-                .map(row -> row.equals(id));
-*/
 
         return Util.getConnection()
                 .flatMapMany(conn -> conn.createStatement("SELECT EXISTS (SELECT 1 FROM machine WHERE ID = '" + id + "')").execute())

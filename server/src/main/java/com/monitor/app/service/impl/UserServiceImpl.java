@@ -9,6 +9,9 @@ import reactor.core.publisher.Mono;
 
 import static java.lang.String.format;
 
+/**
+ * The type User service.
+ */
 @Service
 @Slf4j
 public class UserServiceImpl implements UserService {
@@ -19,8 +22,7 @@ public class UserServiceImpl implements UserService {
                 .flatMapMany(conn -> conn.createBatch()
                         .add(format("INSERT INTO user VALUES ('%s', '%s', '%s')",
                                 user.name(),
-                                Util.encrypt(user.password()), //TODO quitar
-                                //passwordEncoder.encode(user.password()),
+                                Util.encrypt(user.password()),
                                 user.register_date()))
                         .execute())
                 .next()

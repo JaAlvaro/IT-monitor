@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import reactor.core.publisher.Mono;
 
+/**
+ * The type Register controller.
+ */
 @Controller
 @Slf4j
 public class RegisterController {
@@ -21,18 +24,30 @@ public class RegisterController {
     @Autowired
     private MachineServiceImpl machineService;
 
+    /**
+     * Register mono.
+     *
+     * @param model the model
+     * @return the mono
+     */
     @GetMapping({"/register/user"})
     public Mono<String> register(Model model) {
 
         //Flux<Producto> productos = service.findAllConNombreUpperCase();
-
         //productos.subscribe(prod -> log.info(prod.getNombre()));
-
         //model.addAttribute("productos", productos);
+
         model.addAttribute("titulo", "Registro de usuario");
         return Mono.just("register");
     }
 
+    /**
+     * Register mono.
+     *
+     * @param user  the user
+     * @param model the model
+     * @return the mono
+     */
     @PostMapping({"/register/user"})
     public Mono<String> register(User user, Model model) {
 
