@@ -1,6 +1,7 @@
 package com.monitor.app.service;
 
 import com.monitor.app.model.Machine;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
@@ -40,4 +41,12 @@ public interface MachineService {
      * @return the mono
      */
     Mono<Void> delete(String machineId);
+
+    /**
+     * Find machines by user flux.
+     *
+     * @param username the username
+     * @return the flux
+     */
+    Flux<Machine> findMachinesByUser(String username);
 }

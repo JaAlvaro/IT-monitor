@@ -3,19 +3,19 @@ package com.monitor.app.util;
 import dev.miku.r2dbc.mysql.MySqlConnection;
 import dev.miku.r2dbc.mysql.MySqlConnectionConfiguration;
 import dev.miku.r2dbc.mysql.MySqlConnectionFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import reactor.core.publisher.Mono;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.util.Date;
 
-import static com.monitor.app.util.Constant.DATETIME_PATTERN;
+import static com.monitor.app.util.Constant.*;
 
 /**
  * The type Util.
@@ -29,11 +29,11 @@ public class Util {
      */
     public static Mono<MySqlConnection> getConnection() {
         MySqlConnectionConfiguration configuration = MySqlConnectionConfiguration.builder()
-                .host("localhost")
-                .user("root")
-                .password("IT-Monitor.UC3M!")
-                .database("ITMONITOR")
-                .serverZoneId(ZoneId.of("Europe/Paris"))
+                .host(HOST)
+                .user(MYSQL_USER)
+                .password(PASSWORD)
+                .database(DATABASE)
+                .serverZoneId(ZoneId.of(ZONE_ID))
                 .build();
 
         return Mono.from(MySqlConnectionFactory.from(configuration).create());
@@ -62,7 +62,7 @@ public class Util {
      * Decrypt string.
      *
      * @param data the data
-     * @param pass  the pass
+     * @param pass the pass
      * @return the string
      */
     public static String decrypt(String data, String pass) {
@@ -76,7 +76,7 @@ public class Util {
         }
     }
 
-    private static byte[] generateAesKey(String key){
+    private static byte[] generateAesKey(String key) {
         //YYYY-MM-DD HH:MM:SS.SSS         23 B
         var split = key.split("-");
 

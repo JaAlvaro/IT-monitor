@@ -6,6 +6,7 @@ import com.monitor.app.service.impl.UserServiceImpl;
 import com.monitor.app.util.Util;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.ReactiveSecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,15 +31,13 @@ public class RegisterController {
      * @param model the model
      * @return the mono
      */
-    @GetMapping({"/register/user"})
-    public Mono<String> register(Model model) {
-
-        //Flux<Producto> productos = service.findAllConNombreUpperCase();
-        //productos.subscribe(prod -> log.info(prod.getNombre()));
-        //model.addAttribute("productos", productos);
+    @GetMapping({"/register"})
+    public Mono<String> registerUser(Model model) {
 
         model.addAttribute("titulo", "Registro de usuario");
-        return Mono.just("register");
+
+        return ReactiveSecurityContextHolder.getContext()
+                .map(ctxt -> ctxt.getAuthentication().isAuthenticated() ? "redirect:home" : "register");
     }
 
     /**
@@ -48,8 +47,8 @@ public class RegisterController {
      * @param model the model
      * @return the mono
      */
-    @PostMapping({"/register/user"})
-    public Mono<String> register(User user, Model model) {
+    @PostMapping({"/register"})
+    public Mono<String> registerUser(User user, Model model) {
 
         return Mono.just(user.name())
                 .flatMap(name -> userService.checkUser(name).flatMap(exists -> exists ? Mono.empty() : Mono.just(name)))

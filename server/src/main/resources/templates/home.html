@@ -1,11 +1,40 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title th:text="${titulo}">Insert title here</title>
 </head>
 <body>
+    <div>
+        <a th:href="@{/home}"><img alt="Marca IT Monitor" th:src="@{images/it-monitor-trademark.png}"></a>
+    </div>
+
     <h1 th:inline="text">Hello [[${username}]]!</h1>
+    <h2 th:inline="text">Las maquinas: [[${machines}]]!</h2>
+
+    <div th:if="${machines != null}">No machines has been found assigned to you, wanna register one?</div>
+    <!--
+    <table th:if="${machines != null}" >
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>register_date</th>
+            <th>type</th>
+            <th>last_timestamp</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="machine: ${machines}">
+            <td th:text="${machine.id}"></td>
+            <td th:text="${machine.name}"></td>
+            <td th:text="${machine.type}"></td>
+            <!--
+            <td><a th:href="@{/form/} + ${producto.id}">editar</a></td>
+            <td><a th:href="@{/eliminar/} + ${producto.id}" onclick="return confirm('estas seguro que desea eliminar?');">eliminar</a></td>
+
+        </tr>
+        </tbody>
+    </table>-->
 
     <form th:action="@{/logout}" method="post">
         <input type="submit" value="Sign Out"/>

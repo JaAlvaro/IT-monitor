@@ -45,7 +45,7 @@ public class SecurityConfiguration {
     SecurityWebFilterChain webHttpSecurity(ServerHttpSecurity http) {
         return http.csrf().disable()
                 .authorizeExchange((authorize) -> authorize
-                        .pathMatchers("/register/user*", "/login*", "/*.png", "/*.css", "/*.js", "/*.ico").permitAll()
+                        .pathMatchers("/register", "/images/*","/login", "/*.png", "/*.css", "/*.js", "/*.ico").permitAll()
                         .anyExchange().authenticated())
                 .formLogin().loginPage("/login").and()
                 .build();

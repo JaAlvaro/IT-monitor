@@ -2,5 +2,5 @@ spring:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
     url: "jdbc:mysql://localhost:3306/ITMONITOR?autoreconnect=true"
-    username: "root"
-    password: "IT-Monitor.UC3M!"
+    username: "Spring"
+    password: "P4554Spr1ng"
