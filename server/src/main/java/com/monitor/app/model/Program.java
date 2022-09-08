@@ -5,7 +5,7 @@ import lombok.Builder;
 /**
  * @param machineId the machine id
  * @param timeStamp the time stamp
- * @param name      the name
+ * @param name      the model
  */
 @Builder
 public record Program(String machineId,

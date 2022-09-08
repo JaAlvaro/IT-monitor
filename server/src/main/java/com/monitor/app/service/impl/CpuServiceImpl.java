@@ -21,7 +21,7 @@ public class CpuServiceImpl implements CpuService {
 
         return Util.getConnection()
                 .flatMapMany(conn -> conn.createStatement(format("INSERT INTO CPU VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
-                                cpu.machineId(), cpu.timeStamp(), cpu.name(), cpu.microarchitecture(), cpu.logicalCores(),
+                                cpu.machineId(), cpu.timeStamp(), cpu.model(), cpu.microarchitecture(), cpu.logicalCores(),
                                 cpu.physicalCores(), cpu.temperature(), cpu.load()))
                         .execute())
                 .next()
@@ -38,7 +38,7 @@ public class CpuServiceImpl implements CpuService {
                 .flatMap(mySqlResult -> mySqlResult.map((row, metadata) -> Cpu.builder()
                         .machineId(machineId)
                         .timeStamp(row.get("timestamp", String.class))
-                        .name(row.get("name", String.class))
+                        .model(row.get("model", String.class))
                         .microarchitecture(row.get("microarchitecture", String.class))
                         .logicalCores(row.get("logical_cores", String.class))
                         .physicalCores(row.get("physical_cores", String.class))

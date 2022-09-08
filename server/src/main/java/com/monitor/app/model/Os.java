@@ -6,7 +6,7 @@ import lombok.Builder;
  * @param machineId    The machine id
  * @param timeStamp    The time stamp
  * @param family       The os type
- * @param version      The os name
+ * @param version      The os model
  * @param manufacturer The manufacturer
  * @param user         The user logged
  * @param hostname     The hostname

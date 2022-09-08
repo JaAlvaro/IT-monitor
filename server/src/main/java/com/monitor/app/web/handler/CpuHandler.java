@@ -1,4 +1,4 @@
-package com.monitor.app.handler;
+package com.monitor.app.web.handler;
 
 import com.monitor.app.model.Cpu;
 import com.monitor.app.service.impl.CpuServiceImpl;

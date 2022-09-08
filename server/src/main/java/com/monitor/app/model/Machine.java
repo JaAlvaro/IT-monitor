@@ -3,17 +3,19 @@ package com.monitor.app.model;
 import lombok.Builder;
 
 /**
- * @param machineId      the machine id
- * @param name           the name
- * @param type           the type
- * @param register_date  the register date
- * @param last_timestamp the time stamp
+ * @param id              the id
+ * @param name            the model
+ * @param type            the type
+ * @param registerDate   the register date
+ * @param lastConnection the last connection
+ * @param screenConsent  the screen consent
  */
 @Builder
-public record Machine(String machineId,
+public record Machine(String id,
                       String name,
                       String type,
-                      String register_date,
-                      String last_timestamp) {
+                      String registerDate,
+                      String lastConnection,
+                      boolean screenConsent) {
 
 }

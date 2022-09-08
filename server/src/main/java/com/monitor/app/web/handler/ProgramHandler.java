@@ -1,8 +1,8 @@
-package com.monitor.app.handler;
+package com.monitor.app.web.handler;
 
-import com.monitor.app.model.Os;
+import com.monitor.app.model.ProgramList;
 import com.monitor.app.service.impl.MachineServiceImpl;
-import com.monitor.app.service.impl.OsServiceImpl;
+import com.monitor.app.service.impl.ProgramServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -14,28 +14,28 @@ import reactor.core.publisher.Mono;
 import static org.springframework.web.reactive.function.server.ServerResponse.ok;
 
 /**
- * The type Os handler.
+ * The type Program handler.
  */
 @Component
-public class OsHandler {
+public class ProgramHandler {
 
     @Autowired
-    private OsServiceImpl osService;
+    private ProgramServiceImpl programService;
 
     @Autowired
     private MachineServiceImpl machineService;
 
     /**
-     * Handle os post request mono.
+     * Handle program list post request mono.
      *
      * @param serverRequest the server request
      * @return the mono
      */
-    public Mono<ServerResponse> handleOsPostRequest(ServerRequest serverRequest) {
+    public Mono<ServerResponse> handleProgramPostRequest(ServerRequest serverRequest) {
 
-        return serverRequest.bodyToMono(Os.class)
-                .flatMap(os -> machineService.checkId(os.machineId()).flatMap(isValid -> isValid ? Mono.just(os) : Mono.empty()))
-                .flatMap(osService::insert)
+        return serverRequest.bodyToMono(ProgramList.class)
+                .flatMap(programList -> machineService.checkId(programList.machineId()).flatMap(isValid -> isValid ? Mono.just(programList) : Mono.empty()))
+                .flatMap(programService::insert)
                 .flatMap(str -> ok().bodyValue(str))
                 .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.BAD_REQUEST, "ERROR - Machine ID given has not been registered yet.")));
     }

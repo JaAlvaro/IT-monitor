@@ -4,6 +4,8 @@ import com.monitor.app.client.service.impl.CpuServiceImpl;
 import com.monitor.app.client.service.impl.OsServiceImpl;
 import com.monitor.app.client.service.impl.ProgramServiceImpl;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -12,6 +14,7 @@ import org.springframework.web.reactive.function.client.WebClient;
  * The type Scheduled tasks.
  */
 @Component
+@EnableAsync
 @Slf4j
 public class Scheduler {
 
@@ -22,6 +25,7 @@ public class Scheduler {
     /**
      * Monitor info.
      */
+    @Async
     @Scheduled(fixedRate = 60000)
     public void monitorInfo() {
         cpuService.monitorCpuInfo().doOnNext(log::info).subscribe();

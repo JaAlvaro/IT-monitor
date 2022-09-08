@@ -5,7 +5,7 @@ import lombok.Builder;
 /**
  * @param machineId         The machine id
  * @param timeStamp         The time stamp
- * @param name              The name
+ * @param model             The model
  * @param microarchitecture The microarquitecture
  * @param logicalCores      The number of logical cores
  * @param physicalCores     The number of physical cores
@@ -15,7 +15,7 @@ import lombok.Builder;
 @Builder
 public record Cpu(String machineId,
                   String timeStamp,
-                  String name,
+                  String model,
                   String microarchitecture,
                   String logicalCores,
                   String physicalCores,

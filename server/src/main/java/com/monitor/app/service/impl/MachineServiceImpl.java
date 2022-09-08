@@ -50,9 +50,9 @@ public class MachineServiceImpl implements MachineService {
         return Util.getConnection()
                 .flatMapMany(conn -> conn.createStatement("SELECT * FROM machine WHERE ID = '" + id + "'").execute())
                 .flatMap(mySqlResult -> mySqlResult.map((row, metadata) -> Machine.builder()
-                        .machineId(id)
-                        .register_date(row.get("register_date", String.class))
-                        .last_timestamp(row.get("last_timestamp", String.class))
+                        .id(id)
+                        .registerDate(row.get("register_date", String.class))
+                        .lastConnection(row.get("last_connection", String.class))
                         .build()))
                 .next();
     }

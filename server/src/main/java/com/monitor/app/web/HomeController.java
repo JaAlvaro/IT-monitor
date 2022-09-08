@@ -29,8 +29,10 @@ public class HomeController {
                     model.addAttribute("username", username);
 
                     Flux<Machine> machines = machineService.findMachinesByUser(username);
-                    //machines.switchIfEmpty(Mono.just(""));
+
                     // TODO if empty, register some one
+                    //dentro del propio flux, si está vacío o un hasMachines(Username) devuelve false, filter y no añadir nada al model si esta vacío
+                    // no hacer switch if empty
                     model.addAttribute("machines", machines.subscribe());
 
                     return "home";
@@ -41,4 +43,8 @@ public class HomeController {
 
     // TODO actualizar batch sql last_timestamp con cada cpu insert
     // añadir nombre custom a machine en reigstro
+
+    //Crear llamada de get consent
+    //SCREEN_CONSENT yes default en MACHINE o en única instancia de pantalla
+
 }

@@ -1,0 +1,491 @@
+@import 'bootstrap.css';
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+/*--------------------- GLOBALES ---------------------*/
+:root{
+    --blueCorp: rgb(0, 24, 141);
+    --orangeCorp: rgb(168, 118, 0);
+}
+
+html{
+    font-size: 62.5%; /*Reset para REMS - 62.5% = 10px de 16px*/
+}
+
+img {
+    max-width: 100%;
+}
+
+body {
+    font-family: 'Barlow Semi Condensed', Verdana, Tahoma, sans-serif;
+    font-size: 1.5rem;
+    line-height: 1.5;
+    margin: 0;
+}
+
+h1{
+    font-size: 3.5rem;
+}
+
+h2{
+    font-size: 3rem;
+}
+
+h3{
+    font-size: 2rem;
+}
+
+.horizontal {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.columna {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin: 1rem;
+    background-color: white;
+}
+
+.esquinas_curvadas {
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+.centrado{
+    text-align: center;
+}
+
+.margin-vertical {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.justificado {
+    text-align: justify;
+}
+
+.margen_izdo {
+    margin-left: 1rem;
+}
+
+a{
+    text-decoration: none;
+}
+
+a:hover{
+    color: var(--orangeCorp);
+}
+.pointer:hover{
+    color: var(--orangeCorp);
+    cursor: pointer;
+}
+
+iframe {
+    width: 32rem;
+    height: 18rem;
+}
+@media only screen and (max-width: 768px){
+    iframe{
+        width: 100%;
+    }
+}
+
+textarea{
+    resize: none;
+}
+
+.flex_start{
+    justify-content: flex-start;
+}
+
+
+@media only screen and (min-width:768px){
+    .container p{
+        font-size: 2rem;
+    }
+}
+@media only screen and (max-width:600px){
+    .container p{
+        font-size: 2rem;
+    }
+}
+
+.boton_asig {
+    background-color: var(--blueCorp);
+    color: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    max-height: 20rem;
+    max-width: 20rem;
+}
+
+.boton_asig:hover{
+    background-color: var(--orangeCorp);
+}
+
+#seccion_shortcuts{
+    display: none;
+}
+
+.shortcuts .boton_asig{
+    padding: 0;
+    max-height: 10rem;
+    max-width: 10rem;
+}
+
+.shortcuts_filas{
+    display: none;
+}
+
+@media only screen and (max-width:1220px){
+    .shortcuts_filas{
+        display: initial;
+    }
+    .shortcuts_horizontal{
+        display: none;
+    }
+}
+
+@media only screen and (max-width:600px){
+    .shortcuts_horizontal{
+        display: initial;
+    }
+}
+
+
+.titulo{
+    background-color: #8B91C2;
+    color: white;
+    border-color: var(--blueCorp);
+    border-width: 0.2rem;
+    margin: 0 1.5rem;
+    padding: 0.5rem 2rem;
+    max-width: 100%;
+    font-weight: bold;
+}
+
+.titulo h2 {
+    font-weight: bold !important;
+}
+
+.subtitulo {
+    color: var(--blueCorp);
+    border-color: #808eff;
+    border-width: 0.1rem;
+    margin: 0 1.5rem;
+    padding: 0.1rem 2rem;
+    max-width: 100%;
+    font-size: 2.2rem;
+}
+
+.tema .list-group li a {
+    font-size: 1.7rem;
+}
+
+.tema_final .list-group li a {
+    font-size: 1.7rem;
+}
+
+abbr{
+    text-decoration: none!important;
+}
+
+abbr:hover{
+    cursor: pointer;
+}
+
+.min-height{
+    min-height: 63rem;
+}
+
+.error{
+    color: red;
+}
+
+.boton-icono-grande {
+    background-color: var(--blueCorp);
+    color: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    max-height: 15rem;
+    max-width: 15rem;
+}
+
+.boton-accion{
+    background-color: var(--blueCorp);
+    color: white;
+    border-radius: 1rem;
+    padding: 1rem 2rem;
+    font-size: 1.5rem;
+}
+
+.boton-icono-grande:hover, .boton-accion:hover  {
+    background-color: var(--orangeCorp);
+    color: white;
+}
+
+/*--------------------- HEADER ---------------------*/
+.logo {
+    max-height: 10rem;
+}
+
+.logout-div{
+
+}
+
+.header_superior {
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+.header_superior h1 {
+    margin: 2rem;
+    font-size: 6rem;
+    font-weight: bold;
+}
+
+@media only screen and (max-width:600px){
+    .logo{
+    }
+
+    .logout-div{
+        margin-top: 0;
+    }
+
+    .header_superior {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+}
+
+.header_azul{
+    background-color: var(--blueCorp);
+    height: 2rem;
+}
+
+/*--------------------LOGIN------------------------*/
+.login-main{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+}
+
+@media only screen and (max-width:600px){
+    .login-main{
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+}
+
+.acceso-registro-div {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+/*--------------------- CUERPO ---------------------*/
+.cuerpo {
+    align-items: flex-start;
+    padding-bottom: 2rem;
+    margin: 3rem 6rem;
+}
+
+@media only screen and (max-width: 768px){
+    .cuerpo {
+        margin: 3rem 4rem;
+    }
+}
+
+.col_lateral {
+    width: 35%;
+    margin: 0 0 0 3rem;
+}
+
+@media only screen and (max-width: 600px){
+    .col_lateral{
+        display: none;
+    }
+}
+
+.col_central {
+    width: 65%;
+    margin: 0;
+}
+
+@media only screen and (max-width: 600px){
+    .col_central {
+        width: 100%;
+    }
+
+    .cuerpo {
+        margin: 3rem 3rem;
+    }
+}
+
+
+/*--------------------- TABLAS (LISTA, CALIFICACIONES y ASIGNATURAS) ---------------------*/
+.div-tabla {
+    overflow-x: auto;
+    margin: 0rem auto;
+    width: 95%;
+    max-width: 100%;
+}
+.tabla {
+    width: 100%;
+}
+
+th {
+    border: 2px solid black;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+tr:nth-child(even) {background-color: #f2f2f2;}
+
+.chat {
+    width: 3rem;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+#table_asignaturas td {
+    font-size: 2rem;
+}
+
+/*--------------------- COLUMNA IZQUIERDA ---------------------*/
+.links_asignatura {
+    display:none;
+}
+
+.links_asignatura a{
+    font-size: 2rem;
+}
+
+
+@media only screen and (min-width:768px){
+    .novedades_tablet{
+        display: none;
+    }
+}
+
+@media only screen and (max-width:900px){
+    .links_asignatura a{
+        font-size: 1.6rem;
+    }
+}
+
+/*--------------------- COLUMNA DERECHA ---------------------*/
+
+
+.contenedor{
+    padding-bottom: 1.5rem;
+}
+
+.fecha{
+    border: 0.2rem solid;
+    border-radius: 0.7rem;
+    padding-left: 2rem;
+    font-weight: bold;
+}
+
+.evento, .novedad{
+    margin-bottom:  2rem;
+
+}
+
+.novedad .fecha {
+    background-color: #99ff99;
+    border-color: green;
+}
+
+.evento .fecha {
+    background-color: #ff9999;
+    border-color: red;
+}
+
+.novedad p, .evento p{
+    margin: 0.5rem;
+    text-align: justify;
+}
+
+.info {
+    padding-left: 0.5rem;
+}
+
+
+
+/*--------------------- FOOTER ---------------------*/
+footer {
+    background-color: var(--blueCorp);
+    color: white;
+    padding: 10rem 4rem 5rem 4rem;
+    margin-top: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.footer_superior {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo2{
+    height: 12rem;
+}
+
+.footer_links{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.derechos_reservados {
+    padding: 4rem 4rem;
+}
+
+@media only screen and (max-width: 600px){
+    footer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .footer_links{
+        text-align: center;
+    }
+
+    .footer_links a{
+        margin: 1rem 0;
+    }
+
+    footer hr {
+        display: none;
+    }
+    .footer_links{
+        text-align: center;
+    }
+
+    .footer_superior{
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+}
+
+footer a {
+    color: white;
+}
