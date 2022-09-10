@@ -51,6 +51,8 @@ public class MachineServiceImpl implements MachineService {
                 .flatMapMany(conn -> conn.createStatement("SELECT * FROM machine WHERE ID = '" + id + "'").execute())
                 .flatMap(mySqlResult -> mySqlResult.map((row, metadata) -> Machine.builder()
                         .id(id)
+                        .type("")
+                        .name("Ordenador PC")
                         .registerDate(row.get("register_date", String.class))
                         .lastConnection(row.get("last_connection", String.class))
                         .build()))
@@ -70,6 +72,14 @@ public class MachineServiceImpl implements MachineService {
                 .flatMapMany(conn -> conn.createStatement("SELECT MACHINE_ID FROM user_machine WHERE USERNAME = '" + username+"'").execute())
                 .flatMap(mySqlResult -> mySqlResult.map(((row, rowMetadata) -> (String) row.get(0))))
                 .flatMap(this::find);
+    }
+
+    @Override
+    public Mono<String> updateLastConnection(String id, String lastConnection) {
+        return Util.getConnection()
+                .flatMapMany(conn -> conn.createStatement("UPDATE MACHINE SET LAST_CONNECTION = '"+ lastConnection +"' WHERE ID = '" + id+"'").execute())
+                .flatMap(mySqlResult -> mySqlResult.map(((row, rowMetadata) -> (String) row.get(0))))
+                .next();
     }
 }
 

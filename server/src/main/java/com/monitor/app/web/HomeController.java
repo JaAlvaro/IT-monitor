@@ -13,8 +13,6 @@ import reactor.core.publisher.Mono;
 
 @Controller
 public class HomeController {
-    @Autowired
-    private UserServiceImpl userService;
 
     @Autowired
     private MachineServiceImpl machineService;
@@ -28,14 +26,27 @@ public class HomeController {
                     var username = ctxt.getAuthentication().getName();
                     model.addAttribute("username", username);
 
+                    return "home";
+                });
+    }
+
+    @GetMapping({"machines"})
+    public Mono<String> machines(Model model) {
+        model.addAttribute("titulo", "Equipos");
+
+        return ReactiveSecurityContextHolder.getContext()
+                .map(ctxt -> {
+                    var username = ctxt.getAuthentication().getName();
+                    model.addAttribute("username", username);
+
                     Flux<Machine> machines = machineService.findMachinesByUser(username);
 
                     // TODO if empty, register some one
                     //dentro del propio flux, si está vacío o un hasMachines(Username) devuelve false, filter y no añadir nada al model si esta vacío
                     // no hacer switch if empty
-                    model.addAttribute("machines", machines.subscribe());
+                    model.addAttribute("machines", machines);
 
-                    return "home";
+                    return "machines";
                 });
     }
 

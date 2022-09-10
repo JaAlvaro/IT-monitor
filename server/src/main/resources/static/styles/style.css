@@ -100,18 +100,6 @@ textarea{
     justify-content: flex-start;
 }
 
-
-@media only screen and (min-width:768px){
-    .container p{
-        font-size: 2rem;
-    }
-}
-@media only screen and (max-width:600px){
-    .container p{
-        font-size: 2rem;
-    }
-}
-
 .boton_asig {
     background-color: var(--blueCorp);
     color: white;
@@ -148,7 +136,7 @@ textarea{
     }
 }
 
-@media only screen and (max-width:600px){
+@media only screen and (max-width:700px){
     .shortcuts_horizontal{
         display: initial;
     }
@@ -197,7 +185,7 @@ abbr:hover{
 }
 
 .min-height{
-    min-height: 63rem;
+    min-height: 50rem;
 }
 
 .error{
@@ -221,9 +209,32 @@ abbr:hover{
     font-size: 1.5rem;
 }
 
-.boton-icono-grande:hover, .boton-accion:hover  {
+.boton-acceso {
+    background-color: var(--blueCorp);
+    border-radius: 1rem;
+    padding: 1rem;
+    margin: 1rem;
+}
+
+.boton-icono-grande:hover, .boton-accion:hover, .boton-acceso:hover {
     background-color: var(--orangeCorp);
     color: white;
+}
+
+@media only screen and (max-width:900px){
+    .boton-acceso {
+        padding: 0.5rem;
+        margin: 0.5rem;
+    }
+}
+
+.boton-grande-div {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 2rem;
 }
 
 /*--------------------- HEADER ---------------------*/
@@ -232,7 +243,8 @@ abbr:hover{
 }
 
 .logout-div{
-
+    text-align: center;
+    align-items: center;
 }
 
 .header_superior {
@@ -248,7 +260,7 @@ abbr:hover{
     font-weight: bold;
 }
 
-@media only screen and (max-width:600px){
+@media only screen and (max-width:700px){
     .logo{
     }
 
@@ -278,15 +290,15 @@ abbr:hover{
     padding-bottom: 4rem;
 }
 
-@media only screen and (max-width:600px){
+@media only screen and (max-width:700px){
     .login-main{
         flex-direction: column;
         justify-content: flex-start;
     }
 }
 
-.acceso-registro-div {
-    text-align: center;
+/*--------------------- CUERPO ---------------------*/
+.contenedor-inicio {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -311,7 +323,7 @@ abbr:hover{
     margin: 0 0 0 3rem;
 }
 
-@media only screen and (max-width: 600px){
+@media only screen and (max-width: 700px){
     .col_lateral{
         display: none;
     }
@@ -322,7 +334,7 @@ abbr:hover{
     margin: 0;
 }
 
-@media only screen and (max-width: 600px){
+@media only screen and (max-width: 700px){
     .col_central {
         width: 100%;
     }
@@ -336,12 +348,16 @@ abbr:hover{
 /*--------------------- TABLAS (LISTA, CALIFICACIONES y ASIGNATURAS) ---------------------*/
 .div-tabla {
     overflow-x: auto;
-    margin: 0rem auto;
+
     width: 95%;
     max-width: 100%;
 }
-.tabla {
-    width: 100%;
+
+table {
+    width: 95%;
+    margin: 1rem;
+    padding: 1rem;
+    text-align: center;
 }
 
 th {
@@ -350,19 +366,16 @@ th {
     text-align: center;
 }
 
-tr:nth-child(even) {background-color: #f2f2f2;}
-
-.chat {
-    width: 3rem;
-    height: auto;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+thead {
+    background-color: var(--blueCorp);
+    color: white;
+    border-color: white;
 }
 
+tr:nth-child(even) {background-color: #f2f2f2;}
 
-#table_asignaturas td {
-    font-size: 2rem;
+.icono-tabla {
+    width: 2rem
 }
 
 /*--------------------- COLUMNA IZQUIERDA ---------------------*/
@@ -459,7 +472,7 @@ footer {
     padding: 4rem 4rem;
 }
 
-@media only screen and (max-width: 600px){
+@media only screen and (max-width: 700px){
     footer {
         display: flex;
         flex-direction: column;

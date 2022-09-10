@@ -53,7 +53,7 @@ public class CpuServiceImpl implements CpuService {
         return Cpu.builder()
                 .machineId(getMachineId())
                 .timeStamp(getDatetime())
-                .name(cpu_utils.getProcessorIdentifier().getName())
+                .model(cpu_utils.getProcessorIdentifier().getName())
                 .microarchitecture(cpu_utils.getProcessorIdentifier().getMicroarchitecture())
                 .physicalCores(String.valueOf(cpu_utils.getPhysicalProcessorCount()))
                 .logicalCores(String.valueOf(cpu_utils.getLogicalProcessorCount()))

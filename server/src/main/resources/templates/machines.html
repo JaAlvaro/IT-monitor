@@ -1,42 +1,121 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Equipos</title>
+    <link rel="stylesheet" href="/styles/style.css">
 </head>
 <body>
-  <div>
-    <a th:href="@{/home}"><img alt="Marca IT Monitor" th:src="@{images/it-monitor-trademark.png}"></a>
-  </div>
+    <!--Header-->
+    <header>
+        <div class="horizontal header_superior">
+            <a th:href="@{/home}"><img alt="Marca IT Monitor" th:src="@{images/it-monitor-trademark.png}" class="logo margin-vertical"></a>
+            <div class="margin-vertical logout-div">
+                <h3 th:inline="text">[[${username}]]</h3>
+                <form th:action="@{/logout}" method="post">
+                    <input type="submit" value="Cerrar sesión" class="btn boton-accion"/>
+                </form>
+            </div>
+        </div>
+        <div class="header_azul"></div>
+    </header>
 
-  <h2 th:inline="text">Las maquinas: [[${machines}]]!</h2>
+    <!--Main content-->
+    <!-- CUERPO DE LA PAGINA -->
+    <main class="min-height">
 
-  <table th:if="${machines != null}" >
-      <thead>
-      <tr>
-          <th>id</th>
-          <th>register_date</th>
-          <th>type</th>
-          <th>last_timestamp</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr th:if="${machines == null}" th:each="machine: ${machines}">
-          <td th:text="${machine.id}"></td>
-          <td th:text="${machine.name}"></td>
-          <td th:text="${machine.type}"></td>
-          <!--
-          <td><a th:href="@{/form/} + ${producto.id}">editar</a></td>
-          <td><a th:href="@{/eliminar/} + ${producto.id}" onclick="return confirm('estas seguro que desea eliminar?');">eliminar</a></td>
-          -->
-      </tr>
-      </tbody>
-  </table>
+        <!-- COLUMNAS -->
+        <div class="horizontal cuerpo">
 
-  <div th:if="${machines != null}">No machines has been found assigned to you, wanna register one?</div>
+            <!-- COLUMNA CENTRAL -->
+            <section class="columna col_central esquinas_curvadas py-4">
 
-  <form th:action="@{/logout}" method="post">
-    <input type="submit" value="Sign Out"/>
-  </form>
+                <h1 th:text="${titulo}" class="centrado"></h1>
+
+                <table th:if="${not #lists.isEmpty(machines)}">
+                    <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>ID</th>
+                        <th>Conexión</th>
+                        <th>Editar</th>
+                        <th>Eliminar</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="machine: ${machines}">
+                        <td th:text="${machine.name}"></td>
+                        <td th:text="${machine.id}"></td>
+                        <td th:text="${machine.lastConnection}"></td>
+                        <td><a th:href="@{/machine}"><img alt="Editar" th:src="@{images/edit.png}" class="icono-tabla"></a></td>
+                        <td><a th:href="@{/delete-machine}"><img alt="Eliminar" th:src="@{images/delete-dark.png}" class="icono-tabla"></a></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <div th:if="${#lists.isEmpty(machines)}" class="boton-grande-div">
+                    <p>No hay ningún equipo informático registrado con tu usuario.</p>
+                    <p>Registra uno aquí para monitorizarlo:</p>
+                    <a th:href="@{/register-machine}">
+                        <button class="btn boton-icono-grande">
+                            <img th:src="@{images/register.png}" width="200" alt="Registro de equipo" class="">
+                        </button>
+                    </a>
+                    <p>Registrar equipo</p>
+                </div>
+            </section>
+
+
+            <!-- COLUMNA DERECHA -->
+            <section class="columna col_lateral esquinas_curvadas py-4">
+                <h1 class="centrado">Accesos</h1>
+                <div class="horizontal">
+                    <a th:href="@{/account}">
+                        <button class="btn boton-acceso">
+                            <img th:src="@{images/usuario.png}" width="200" alt="Cuenta de usuario" class="">
+                        </button>
+                    </a>
+                    <a th:href="@{/machines}">
+                        <button class="btn boton-acceso">
+                            <img th:src="@{images/machine.png}" width="200" alt="Ordenadores" class="">
+                        </button>
+                    </a>
+                    <a th:href="@{/client}">
+                        <button class="btn boton-acceso">
+                            <img th:src="@{images/download.png}" width="200" alt="Aplicacion cliente" class="">
+                        </button>
+                    </a>
+                    <a th:href="@{/register-machine}">
+                        <button class="btn boton-acceso">
+                            <img th:src="@{images/register.png}" width="200" alt="Registrar equipo" class="">
+                        </button>
+                    </a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+
+    <!--Footer-->
+    <footer>
+        <div class="footer_superior">
+            <nav class="footer_links">
+                <a href="https://www.uc3m.es/inicio/informacion-legal" target="_blank">Información legal</a>
+                <hr>
+                <a href="https://www.uc3m.es/inicio/informacion-legal/politica-privacidad" target="_blank">Privacidad</a>
+            </nav>
+            <nav class="footer_links">
+                <a href="https://www.uc3m.es/inicio/contacta" target="_blank">Dudas y problemas</a>
+                <hr>
+                <a href="https://www.uc3m.es/inicio/informacion-legal/politica-cookies" target="_blank">Cookies</a>
+            </nav>
+            <div>
+                <img th:src="@{images/it-monitor-trademark-inverse.png}" alt="Logo IT Monitor" class="logo2">
+            </div>
+        </div>
+        <div class="centrado derechos_reservados">
+            IT Monitor - Todos los derechos reservados 2022 &copy;
+        </div>
+    </footer>
 </body>
 </html>

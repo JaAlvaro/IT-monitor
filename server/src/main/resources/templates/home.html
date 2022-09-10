@@ -2,25 +2,88 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${titulo}">Insert title here</title>
+    <title>Inicio</title>
+    <link rel="stylesheet" href="/styles/style.css">
 </head>
 <body>
-    <div>
-        <a th:href="@{/home}"><img alt="Marca IT Monitor" th:src="@{images/it-monitor-trademark.png}"></a>
-    </div>
+    <!--Header-->
+    <header>
+        <div class="horizontal header_superior">
+            <a th:href="@{/home}"><img alt="Marca IT Monitor" th:src="@{images/it-monitor-trademark.png}" class="logo margin-vertical"></a>
+            <div class="margin-vertical logout-div">
+                <h3 th:inline="text">[[${username}]]</h3>
+                <form th:action="@{/logout}" method="post">
+                    <input type="submit" value="Cerrar sesión" class="btn boton-accion"/>
+                </form>
+            </div>
+        </div>
+        <div class="header_azul"></div>
+    </header>
 
-    <h1 th:inline="text">Hello [[${username}]]!</h1>
+    <!--Main content-->
+    <main>
+        <h1 th:text="${titulo}" class="centrado margin-vertical"></h1>
+        <div class="contenedor-inicio">
+            <div class="horizontal">
+                <div class="boton-grande-div">
+                    <a th:href="@{/account}">
+                        <button class="btn boton-icono-grande">
+                            <img th:src="@{images/usuario.png}" width="200" alt="Cuenta de usuario" class="">
+                        </button>
+                    </a>
+                    <p>Cuenta de usuario</p>
+                </div>
+                <div class="boton-grande-div">
+                    <a th:href="@{/machines}">
+                        <button class="btn boton-icono-grande">
+                            <img th:src="@{images/machine.png}" width="200" alt="Ordenadores" class="">
+                        </button>
+                    </a>
+                    <p>Ordenadores</p>
+                </div>
+            </div>
+            <div class="horizontal">
+                <div class="boton-grande-div">
+                    <a th:href="@{/client}">
+                        <button class="btn boton-icono-grande">
+                            <img th:src="@{images/download.png}" width="200" alt="Aplicacion cliente" class="">
+                        </button>
+                    </a>
+                    <p>Aplicación cliente</p>
+                </div>
+                <div class="boton-grande-div">
+                    <a th:href="@{/register-machine}">
+                        <button class="btn boton-icono-grande">
+                            <img th:src="@{images/register.png}" width="200" alt="Registrar equipo" class="">
+                        </button>
+                    </a>
+                    <p>Registrar equipo</p>
+                </div>
+            </div>
+        </div>
+    </main>
 
-    <form th:action="@{/logout}" method="post">
-        <input type="submit" value="Sign Out"/>
-    </form>
 
-    <div>
-        <a th:href="@{/account}">Cuenta</a>
-        <a th:href="@{/register-machine}">Registrar una máquina</a>
-        <a th:href="@{/machines}">Ver máquinas</a>
-        <a th:href="@{/client-app}">App cliente</a>
-    </div>
-
+    <!--Footer-->
+    <footer>
+        <div class="footer_superior">
+            <nav class="footer_links">
+                <a href="https://www.uc3m.es/inicio/informacion-legal" target="_blank">Información legal</a>
+                <hr>
+                <a href="https://www.uc3m.es/inicio/informacion-legal/politica-privacidad" target="_blank">Privacidad</a>
+            </nav>
+            <nav class="footer_links">
+                <a href="https://www.uc3m.es/inicio/contacta" target="_blank">Dudas y problemas</a>
+                <hr>
+                <a href="https://www.uc3m.es/inicio/informacion-legal/politica-cookies" target="_blank">Cookies</a>
+            </nav>
+            <div>
+                <img th:src="@{images/it-monitor-trademark-inverse.png}" alt="Logo IT Monitor" class="logo2">
+            </div>
+        </div>
+        <div class="centrado derechos_reservados">
+            IT Monitor - Todos los derechos reservados 2022 &copy;
+        </div>
+    </footer>
 </body>
 </html>

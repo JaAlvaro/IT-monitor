@@ -49,4 +49,13 @@ public interface MachineService {
      * @return the flux
      */
     Flux<Machine> findMachinesByUser(String username);
+
+    /**
+     * Update last connection mono.
+     *
+     * @param id             the id
+     * @param lastConnection the last connection
+     * @return the mono
+     */
+    Mono<String> updateLastConnection(String id, String lastConnection);
 }

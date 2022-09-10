@@ -22,19 +22,18 @@ public class Scheduler {
     private final OsServiceImpl osService = new OsServiceImpl(WebClient.builder());
     private final ProgramServiceImpl programService = new ProgramServiceImpl(WebClient.builder());
 
-    /**
-     * Monitor info.
-     */
     @Async
     @Scheduled(fixedRate = 60000)
-    public void monitorInfo() {
+    public void monitorCpu() {
         cpuService.monitorCpuInfo().doOnNext(log::info).subscribe();
-
-        osService.monitorOsInfo().doOnNext(log::info).subscribe();
-
-        programService.monitorProgramList().doOnNext(log::info).subscribe();
     }
 
+    @Async
+    @Scheduled(fixedRate = 60000)
+    public void monitorOs() {
+        //osService.monitorOsInfo().doOnNext(log::info).subscribe();
+        //programService.monitorProgramList().doOnNext(log::info).subscribe();
+    }
 
     private static void testing() {
 
