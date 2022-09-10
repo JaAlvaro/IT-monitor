@@ -38,7 +38,7 @@
                         <th>Nombre</th>
                         <th>ID</th>
                         <th>Conexión</th>
-                        <th>Editar</th>
+                        <th>Ver</th>
                         <th>Eliminar</th>
                     </tr>
                     </thead>
@@ -47,8 +47,8 @@
                         <td th:text="${machine.name}"></td>
                         <td th:text="${machine.id}"></td>
                         <td th:text="${machine.lastConnection}"></td>
-                        <td><a th:href="@{/machine}"><img alt="Editar" th:src="@{images/edit.png}" class="icono-tabla"></a></td>
-                        <td><a th:href="@{/delete-machine}"><img alt="Eliminar" th:src="@{images/delete-dark.png}" class="icono-tabla"></a></td>
+                        <td><a th:href="@{'/machine/' + ${machine.id}}"><img alt="Ver" th:src="@{images/see.png}" class="icono-tabla"></a></td>
+                        <td><a th:href="@{'/delete-machine/' + ${machine.id}}"><img alt="Eliminar" th:src="@{images/delete-dark.png}" class="icono-tabla"></a></td>
                     </tr>
                     </tbody>
                 </table>

@@ -81,5 +81,16 @@ public class MachineServiceImpl implements MachineService {
                 .flatMap(mySqlResult -> mySqlResult.map(((row, rowMetadata) -> (String) row.get(0))))
                 .next();
     }
+
+    @Override
+    public Mono<Boolean> checkOwnership(String machineId, String username){
+        return Util.getConnection()
+                .flatMapMany(conn -> conn.createStatement(
+                        "SELECT EXISTS (SELECT 1 FROM user_machine WHERE USERNAME = '" + username + "' AND MACHINE_ID = '" + machineId + "')")
+                        .execute())
+                .flatMap(mySqlResult -> mySqlResult.map((row, metadata) -> row.get(0)))
+                .next()
+                .map(result -> String.valueOf(result).equals("1"));
+    }
 }
 

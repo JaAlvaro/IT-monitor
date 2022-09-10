@@ -58,4 +58,13 @@ public interface MachineService {
      * @return the mono
      */
     Mono<String> updateLastConnection(String id, String lastConnection);
+
+    /**
+     * Check ownership mono.
+     *
+     * @param machineId the machine id
+     * @param username  the username
+     * @return the mono
+     */
+    Mono<Boolean> checkOwnership(String machineId, String username);
 }

@@ -185,7 +185,7 @@ abbr:hover{
 }
 
 .min-height{
-    min-height: 50rem;
+    min-height: 40rem;
 }
 
 .error{
@@ -226,6 +226,10 @@ abbr:hover{
         padding: 0.5rem;
         margin: 0.5rem;
     }
+
+    .boton-icono-grande {
+        padding: 1rem;
+    }
 }
 
 .boton-grande-div {
@@ -235,6 +239,12 @@ abbr:hover{
     justify-content: flex-start;
     align-items: center;
     margin: 2rem;
+}
+
+@media only screen and (max-width:900px){
+    .boton-grande-div {
+        margin: 1rem;
+    }
 }
 
 /*--------------------- HEADER ---------------------*/
@@ -305,7 +315,6 @@ abbr:hover{
     align-items: center;
 }
 
-/*--------------------- CUERPO ---------------------*/
 .cuerpo {
     align-items: flex-start;
     padding-bottom: 2rem;
@@ -344,6 +353,13 @@ abbr:hover{
     }
 }
 
+.datos-equipo-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
 
 /*--------------------- TABLAS (LISTA, CALIFICACIONES y ASIGNATURAS) ---------------------*/
 .div-tabla {

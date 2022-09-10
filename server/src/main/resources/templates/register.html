@@ -7,9 +7,63 @@
 
 </head>
 <body>
+    <!--Header-->
+    <header>
+        <div class="horizontal header_superior">
+            <a th:href="@{/login}"><img alt="Marca IT Monitor" th:src="@{images/it-monitor-trademark.png}" class="logo margin-vertical"></a>
+            <div class="margin-vertical logout-div">
+                <h3>No identificado</h3>
+            </div>
+        </div>
+        <div class="header_azul"></div>
+    </header>
 
-    <h1 th:text="${titulo}"></h1>
-    <!--Header 00188D-->
+    <!--Main content-->
+    <main>
+        <h1 th:text="${titulo}" class="centrado margin-vertical"></h1>
+        <div class="login-main">
+            <div>
+                <form th:action="@{/login}" method="post" >
+                    <fieldset class="columna">
+                        <div th:if="${param.logout}">
+                            Has salido de la sesión.
+                        </div>
+
+                        <label class="">Usuario: </label>
+                        <input type="text" name="username"/>
+
+                        <label>Contraseña: </label>
+                        <input type="password" name="password"/>
+
+                        <div th:if="${param.error}" class="error">
+                            Usuario o contraseña incorrectos.
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn boton-accion margin-vertical">Iniciar sesión</button>
+                        </div>
+                    </fieldset>
+
+                </form>
+            </div>
+
+            <hr>
+
+            <div class="boton-grande-div">
+                <p>Si ya tienes una cuenta de usuario, inicia sesión aquí:</p>
+                <a th:href="@{/register}">
+                    <button class="btn boton-icono-grande">
+                        <img th:src="@{images/user.png}" width="200" alt="Iniciar sesion" class="">
+                    </button>
+                </a>
+                <p>Inicio de sesión</p>
+            </div>
+
+        </div>
+        </div>
+    </main>
+
+
     <div th:if="${param.error}">
         The username already exists on database
     </div>
@@ -24,7 +78,28 @@
         <a th:href="@{/login}">Log in here</a>
     </div>
 
-    <!--Footer-->
 
+
+    <!--Footer-->
+    <footer>
+        <div class="footer_superior">
+            <nav class="footer_links">
+                <a href="https://www.uc3m.es/inicio/informacion-legal" target="_blank">Información legal</a>
+                <hr>
+                <a href="https://www.uc3m.es/inicio/informacion-legal/politica-privacidad" target="_blank">Privacidad</a>
+            </nav>
+            <nav class="footer_links">
+                <a href="https://www.uc3m.es/inicio/contacta" target="_blank">Dudas y problemas</a>
+                <hr>
+                <a href="https://www.uc3m.es/inicio/informacion-legal/politica-cookies" target="_blank">Cookies</a>
+            </nav>
+            <div>
+                <img th:src="@{images/it-monitor-trademark-inverse.png}" alt="Logo IT Monitor" class="logo2">
+            </div>
+        </div>
+        <div class="centrado derechos_reservados">
+            IT Monitor - Todos los derechos reservados 2022 &copy;
+        </div>
+    </footer>
 </body>
 </html>
