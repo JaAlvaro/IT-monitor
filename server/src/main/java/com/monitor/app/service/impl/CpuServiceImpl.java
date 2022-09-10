@@ -38,7 +38,7 @@ public class CpuServiceImpl implements CpuService {
     @Override
     public Flux<Cpu> find(String machineId) {
         return Util.getConnection()
-                .flatMapMany(conn -> conn.createStatement("SELECT * FROM cpu WHERE MACHINE_ID = '" + machineId + "'").execute())
+                .flatMapMany(conn -> conn.createStatement("SELECT * FROM cpu WHERE MACHINE_ID = '" + machineId + "' ORDER BY TIMESTAMP DESC LIMIT 20").execute())
                 .flatMap(mySqlResult -> mySqlResult.map((row, metadata) -> Cpu.builder()
                         .machineId(machineId)
                         .timeStamp(row.get("timestamp", String.class))

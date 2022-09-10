@@ -8,4 +8,6 @@ public class Constant {
     public final static String CPU_URL = BASE_URL + API_CONTEXT + "/cpu";
     public final static String OS_URL = BASE_URL + API_CONTEXT + "/os";
     public final static String PROGRAM_URL = BASE_URL + API_CONTEXT + "/program";
+    public final static String BATTERY_URL = BASE_URL + API_CONTEXT + "/battery";
+    public final static String CONTROL_URL = BASE_URL + API_CONTEXT + "/control";
 }

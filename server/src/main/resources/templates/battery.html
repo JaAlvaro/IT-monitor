@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Batería</title>
+    <link rel="stylesheet" href="/styles/style.css">
+</head>
+<body>
+    <!--Header-->
+    <header>
+        <div class="horizontal header_superior">
+            <a th:href="@{/home}"><img alt="Marca IT Monitor" th:src="@{/images/it-monitor-trademark.png}" class="logo margin-vertical"></a>
+            <div class="margin-vertical logout-div">
+                <h3 th:inline="text">[[${username}]]</h3>
+                <form th:action="@{/logout}" method="post">
+                    <input type="submit" value="Cerrar sesión" class="btn boton-accion"/>
+                </form>
+            </div>
+        </div>
+        <div class="header_azul"></div>
+    </header>
+
+    <!--Main content-->
+    <!-- CUERPO DE LA PAGINA -->
+    <main class="min-height">
+
+        <!-- COLUMNAS -->
+        <div class="horizontal cuerpo">
+
+            <!-- COLUMNA CENTRAL -->
+            <section class="columna col_central esquinas_curvadas py-4">
+                <h1 th:text="${machine.name}" class="centrado"></h1>
+                <h2 class="centrado">Batería</h2>
+                <div class="contenedor-inicio">
+                    <div class="datos-equipo-div">
+                        <div>
+                            <p><b>ID:</b></p>
+                            <p th:text="${machine.id}"></p>
+                        </div>
+                        <div>
+                            <p><b>Conexión: </b></p>
+                            <p th:text="${machine.lastConnection}"></p>
+                        </div>
+                    </div>
+
+                    <table th:if="${not #lists.isEmpty(measures)}">
+                        <thead>
+                        <tr>
+                            <th>Marca</th>
+                            <th>Amperaje</th>
+                            <th>Conectado</th>
+                            <th>Carga (%)</th>
+                            <th>Tiempo descarga</th>
+                            <th>Ciclos</th>
+                            <th>Temperatura (ºC)</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="battery: ${measures}">
+                            <td th:text="${battery.timeStamp}"></td>
+                            <td th:text="${battery.amperage}"></td>
+                            <td th:text="${battery.plugged}"></td>
+                            <td th:text="${battery.chargePercent}"></td>
+                            <td th:text="${battery.dischargeTime}"></td>
+                            <td th:text="${battery.chargeCycles}"></td>
+                            <td th:text="${battery.temperature}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- COLUMNA DERECHA -->
+            <section class="columna col_lateral esquinas_curvadas py-4">
+                <h1 class="centrado">Accesos</h1>
+                <div class="horizontal">
+                    <a th:href="@{/account}">
+                        <button class="btn boton-acceso">
+                            <img th:src="@{/images/user.png}" width="200" alt="Cuenta de usuario" class="">
+                        </button>
+                    </a>
+                    <a th:href="@{/machines}">
+                        <button class="btn boton-acceso">
+                            <img th:src="@{/images/machine.png}" width="200" alt="Ordenadores" class="">
+                        </button>
+                    </a>
+                    <a th:href="@{/client}">
+                        <button class="btn boton-acceso">
+                            <img th:src="@{/images/download.png}" width="200" alt="Aplicacion cliente" class="">
+                        </button>
+                    </a>
+                    <a th:href="@{/register-machine}">
+                        <button class="btn boton-acceso">
+                            <img th:src="@{/images/register.png}" width="200" alt="Registrar equipo" class="">
+                        </button>
+                    </a>
+                </div>
+
+                <!-- ACCESOS RAPIDOS COMPONENTES -->
+                <h1 th:text="${machine.name}" class="centrado"></h1>
+                <div class="horizontal">
+                    <a th:href="@{'/cpu/' + ${machine.id}}">
+                        <button class="btn boton-acceso">
+                            <img th:src="@{/images/cpu.png}" width="200" alt="CPU" class="">
+                        </button>
+                    </a>
+                    <a th:href="@{'/os/' + ${machine.id}}">
+                        <button class="btn boton-acceso">
+                            <img th:src="@{/images/os.png}" width="200" alt="OS" class="">
+                        </button>
+                    </a>
+                    <a th:href="@{'/ram/' + ${machine.id}}">
+                        <button class="btn boton-acceso">
+                            <img th:src="@{/images/ram.png}" width="200" alt="RAM" class="">
+                        </button>
+                    </a>
+                    <a th:href="@{'/screen/' + ${machine.id}}">
+                        <button class="btn boton-acceso">
+                            <img th:src="@{/images/screen.png}" width="200" alt="Pantalla" class="">
+                        </button>
+                    </a>
+                </div>
+                <div class="horizontal">
+                    <a th:href="@{'/gpu/' + ${machine.id}}">
+                        <button class="btn boton-acceso">
+                            <img th:src="@{/images/gpu.png}" width="200" alt="GPU" class="">
+                        </button>
+                    </a>
+                    <a th:href="@{'/storage/' + ${machine.id}}">
+                        <button class="btn boton-acceso">
+                            <img th:src="@{/images/storage.png}" width="200" alt="Almacenamiento" class="">
+                        </button>
+                    </a>
+                    <a th:href="@{'/battery/' + ${machine.id}}">
+                        <button class="btn boton-acceso">
+                            <img th:src="@{/images/battery.png}" width="200" alt="Bateria" class="">
+                        </button>
+                    </a>
+                    <a th:href="@{'/control/' + ${machine.id}}">
+                        <button class="btn boton-acceso">
+                            <img th:src="@{/images/remote-control.png}" width="200" alt="Control remoto" class="">
+                        </button>
+                    </a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+
+    <!--Footer-->
+    <footer>
+        <div class="footer_superior">
+            <nav class="footer_links">
+                <a href="https://www.uc3m.es/inicio/informacion-legal" target="_blank">Información legal</a>
+                <hr>
+                <a href="https://www.uc3m.es/inicio/informacion-legal/politica-privacidad" target="_blank">Privacidad</a>
+            </nav>
+            <nav class="footer_links">
+                <a href="https://www.uc3m.es/inicio/contacta" target="_blank">Dudas y problemas</a>
+                <hr>
+                <a href="https://www.uc3m.es/inicio/informacion-legal/politica-cookies" target="_blank">Cookies</a>
+            </nav>
+            <div>
+                <img th:src="@{/images/it-monitor-trademark-inverse.png}" alt="Logo IT Monitor" class="logo2">
+            </div>
+        </div>
+        <div class="centrado derechos_reservados">
+            IT Monitor - Todos los derechos reservados 2022 &copy;
+        </div>
+    </footer>
+</body>
+</html>

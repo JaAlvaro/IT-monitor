@@ -33,7 +33,7 @@ public class OsServiceImpl implements OsService {
     @Override
     public Mono<Os> find(String machineId) {
         return Util.getConnection()
-                .flatMapMany(conn -> conn.createStatement("SELECT * FROM machine WHERE ID = '" + machineId + "'").execute())
+                .flatMapMany(conn -> conn.createStatement("SELECT * FROM os WHERE MACHINE_ID = '" + machineId + "'").execute())
                 .flatMap(mySqlResult -> mySqlResult.map((row, metadata) -> Os.builder()
                         .machineId(machineId)
                         .timeStamp(row.get("timestamp", String.class))

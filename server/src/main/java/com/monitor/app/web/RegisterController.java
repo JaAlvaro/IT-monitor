@@ -57,7 +57,7 @@ public class RegisterController {
                     model.addAttribute("titulo", "Login post-register");
                     return "login";
                 })
-                .switchIfEmpty(Mono.just("redirect:/register/user?error"));
+                .switchIfEmpty(Mono.just("redirect:/register?error"));
     }
 
 

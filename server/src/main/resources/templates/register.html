@@ -23,24 +23,28 @@
         <h1 th:text="${titulo}" class="centrado margin-vertical"></h1>
         <div class="login-main">
             <div>
-                <form th:action="@{/login}" method="post" >
+                <form th:action="@{/register}" method="post" >
                     <fieldset class="columna">
-                        <div th:if="${param.logout}">
-                            Has salido de la sesión.
+                        <label class=""><b>Usuario: </b></label>
+                        <input type="text" name="name" required/>
+
+                        <label><b>Contraseña: </b></label>
+                        <input type="password" name="password" required/>
+
+                        <label><b>Repite la contraseña: </b></label>
+                        <input type="password" name="password2" required/>
+
+                        <div class="margin-vertical">
+                            <label>He leído la <u>Información legal</u> y acepto las condiciones: </label>
+                            <input type="checkbox" name="consent" required/>
                         </div>
 
-                        <label class="">Usuario: </label>
-                        <input type="text" name="username"/>
-
-                        <label>Contraseña: </label>
-                        <input type="password" name="password"/>
-
                         <div th:if="${param.error}" class="error">
-                            Usuario o contraseña incorrectos.
+                            <p><b>Usuario ya existente en la base de datos.</b></p>
                         </div>
 
                         <div class="form-actions">
-                            <button type="submit" class="btn boton-accion margin-vertical">Iniciar sesión</button>
+                            <button type="submit" class="btn boton-accion margin-vertical">Registrarse</button>
                         </div>
                     </fieldset>
 
@@ -51,7 +55,7 @@
 
             <div class="boton-grande-div">
                 <p>Si ya tienes una cuenta de usuario, inicia sesión aquí:</p>
-                <a th:href="@{/register}">
+                <a th:href="@{/login}">
                     <button class="btn boton-icono-grande">
                         <img th:src="@{images/user.png}" width="200" alt="Iniciar sesion" class="">
                     </button>
@@ -62,21 +66,6 @@
         </div>
         </div>
     </main>
-
-
-    <div th:if="${param.error}">
-        The username already exists on database
-    </div>
-    <form th:action="@{/register}" method="post">
-        <div><label> User Name : <input type="text" name="name"/> </label></div>
-        <div><label> Password: <input type="password" name="password"/> </label></div>
-        <div><label> Confirm password: <input type="password" name="password2"/> </label></div>
-        <div><input type="submit" value="Sign In"/></div>
-    </form>
-
-    <div>
-        <a th:href="@{/login}">Log in here</a>
-    </div>
 
 
 

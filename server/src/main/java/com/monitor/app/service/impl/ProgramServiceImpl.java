@@ -42,7 +42,7 @@ public class ProgramServiceImpl implements ProgramService {
                 .flatMap(mySqlResult -> mySqlResult.map((row, metadata) -> Program.builder()
                         .machineId(machineId)
                         .timeStamp(row.get("timestamp", String.class))
-                        .name(row.get("model", String.class))
+                        .name(row.get("name", String.class))
                         .build()));
     }
 
