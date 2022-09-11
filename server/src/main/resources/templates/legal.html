@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Legal</title>
+    <link rel="stylesheet" href="/styles/style.css">
+
+</head>
+<body>
+    <!--Header-->
+    <header>
+        <div class="horizontal header_superior">
+            <a th:href="@{/login}"><img alt="Marca IT Monitor" th:src="@{images/it-monitor-trademark.png}" class="logo margin-vertical"></a>
+            <div th:if="${username == null}" class="margin-vertical logout-div">
+                <h3>No identificado</h3>
+            </div>
+            <div th:if="${username != null}" class="margin-vertical logout-div">
+                <h3 th:inline="text">[[${username}]]</h3>
+                <form th:action="@{/logout}" method="post">
+                    <input type="submit" value="Cerrar sesión" class="btn boton-accion"/>
+                </form>
+            </div>
+        </div>
+        <div class="header_azul"></div>
+    </header>
+
+    <!--Main content-->
+    <main class="min-height">
+        <h1 class="centrado margin-vertical">Información legal</h1>
+        <div class="div-informacion">
+            <p class="margin-vertical margen_izdo">En esta sección se puede ver la información legal respecto al uso de IT Monitor.</p>
+            <p class="margin-vertical margen_izdo">A continuación, se nombran y se explican todos los derechos que tiene un usuario al utilizar IT Monitor:</p>
+            <p class="margin-vertical margen_izdo"> - <b>DERECHO DE ACCESO</b>: En el derecho de acceso se facilitará a los interesados copia de los datos personales de los que se disponga junto con la finalidad para la que han sido recogidos, la identidad de los destinatarios de los datos, los plazos de conservación previstos o el criterio utilizado para determinarlo, la existencia del derecho a solicitar la rectificación o supresión de datos personales así como la limitación o la oposición a su tratamiento, el derecho a presentar una reclamación ante la Agencia Española de Protección de Datos y si los datos no han sido obtenidos del interesado, cualquier información disponibles sobre su origen. El derecho a obtener copia de los datos no puede afectar negativamente a los derechos y libertades de otros interesados.</p>
+            <p class="margin-vertical margen_izdo"> - <b>DERECHO DE RECTIFICACIÓN</b>: En el derecho de rectificación se procederá a modificar los datos de los interesados que fueran inexactos o incompletos atendiendo a los fines del tratamiento. El interesado deberá indicar en la solicitud a qué datos se refiere y la corrección que haya de realizarse, aportando, cuando sea preciso, la documentación justificativa de la inexactitud o carácter incompleto de los datos objeto de tratamiento. Si los datos han sido comunicados por el responsable a otros responsables, deberá notificarles la rectificación de estos salvo que sea imposible o exija un esfuerzo desproporcionado, facilitando al interesado información acerca de dichos destinatarios, si así lo solicita.</p>
+            <p class="margin-vertical margen_izdo"> - <b>DERECHO DE SUPRESIÓN</b>: En el derecho de supresión se eliminarán los datos de los interesados cuando estos manifiesten su negativa al tratamiento y no exista una base legal que lo impida, no sean necesarios en relación con los fines para los que fueron recogidos, retiren el consentimiento prestado y no haya otra base legal que legitime el tratamiento o éste sea ilícito. Si la supresión deriva del ejercicio del derecho de oposición del interesado al tratamiento de sus datos con fines de mercadotecnia, pueden conservarse los datos identificativos del interesado con el fin de impedir futuros tratamientos. Si los datos han sido comunicados por el responsable a otros responsables, deberá notificarles la supresión de estos salvo que sea imposible o exija un esfuerzo desproporcionado, facilitando al interesado información acerca de dichos destinatarios, si así lo solicita.</p>
+            <p class="margin-vertical margen_izdo"> - <b>DERECHO DE OPOSICIÓN</b>: En el derecho de oposición, cuando los interesados manifiesten su negativa al tratamiento de sus datos personales ante el responsable, este dejará de procesarlos siempre que no exista una obligación legal que lo impida. Cuando el tratamiento esté basado en una misión de interés público o en el interés legítimo del responsable, ante una solicitud de ejercicio del derecho de oposición, el responsable dejará de tratar los datos salvo que se acrediten motivos imperiosos que prevalezcan sobre los intereses, derechos y libertades del interesado o sean necesarios para la formulación, ejercicio o defensa de reclamaciones. Si el interesado se opone al tratamiento con fines de mercadotecnia directa, los datos personales dejarán de ser tratados para estos fines.</p>
+            <p class="margin-vertical margen_izdo"> - <b>DERECHO DE PORTABILIDAD</b>: En el derecho de portabilidad, si el tratamiento se efectúa por medios automatizados y se basa en el consentimiento o se realiza en el marco de un contrato, los interesados pueden solicitar recibir copia de sus datos personales en un formato estructurado, de uso común y lectura mecánica. Asimismo, tienen derecho a solicitar que sean transmitidos directamente a un nuevo responsable, cuya identidad deberá ser comunicada, cuando sea técnicamente posible.</p>
+            <p class="margin-vertical margen_izdo"> - <b>DERECHO DE LIMITACIÓN AL TRATAMIENTO</b>: En el derecho de limitación del tratamiento, los interesados pueden solicitar la suspensión del tratamiento de sus datos para impugnar su exactitud mientras el responsable realiza las verificaciones necesarias o en el caso de que el tratamiento se realice en base al interés legítimo del responsable o en cumplimiento de una misión de interés público, mientras se verifica si estos motivos prevalecen sobre los intereses, derechos y libertades del interesado. El interesado también puede solicitar la conservación de los datos si considera que el tratamiento es ilícito y, en lugar de la supresión, solicita la limitación del tratamiento, o si aun no necesitándolos ya el responsable para los fines para los que fueron recabados, el interesado los necesita para la formulación, ejercicio o defensa de reclamaciones. La circunstancia de que el tratamiento de los datos del interesado esté limitado deberá constar claramente en los sistemas del responsable. Si los datos han sido comunicados por el responsable a otros responsables, deberá notificarles la limitación del tratamiento de estos salvo que sea imposible o exija un esfuerzo desproporcionado, facilitando al interesado información acerca de dichos destinatarios, si así lo solicita</p>
+            <p class="margin-vertical margen_izdo"> - <b>DERECHO A NO SER OBJETO DE DECISIONES INDIVIDUALES AUTOMATIZADAS</b>: Este derecho permite a los interesados solicitar no ser objeto de una decisión basada únicamente en el tratamiento de tus datos, incluida la elaboración de perfiles, que produzca sobre ellos efectos jurídicos o que le afecten significativamente de forma similar. Afecta a cualquier forma de tratamiento de datos personales que evalúe aspectos personales, en particular si analiza o predice aspectos relacionados con el rendimiento en el trabajo, la situación económica, la salud, las preferencias o intereses personales, fiabilidad o el comportamiento. Este derecho no es aplicable cuando el tratamiento sea necesario para la celebración o ejecución de un contrato entre él y el responsable o si el tratamiento se fundamente en un consentimiento prestado previamente, aunque en estos casos el responsable debe garantizar el derecho del interesado a obtener la intervención humana, a que exprese su punto de vista y a que impugne la decisión. No obstante, estas excepciones no son de aplicación sobre las categorías especiales de datos, salvo que el interesado diera su consentimiento explícito al tratamiento o este sea necesario por razones de un interés público esencial recogido en una norma y con garantías específicas para proteger los intereses y derechos fundamentales de los interesados afectados.</p>
+        </div>
+
+        <h2 class="centrado margin-vertical">Política de cookies</h2>
+        <div class="div-informacion">
+            <p class="margin-vertical margen_izdo">En esta sección se puede ver la información relativa al uso de cookies en IT Monitor.</p>
+            <p class="margin-vertical margen_izdo">En IT Monitor utilizamos las cookies u otros archivos de funcionalidad similar (en adelante, “cookies”) para saber cómo utilizas nuestros servicios y poder mejorarlos. IT Monitor es responsable de las cookies y del tratamiento de los datos obtenidos a través de estas, ya sean propias o de terceros, decidiendo sobre la finalidad, contenido y uso del tratamiento de la información recabada.</p>
+            <p class="margin-vertical margen_izdo">El objetivo de esta política es informarle de manera clara y detallada de qué es una cookie, cuál es su finalidad, qué tipo de cookies utilizamos y cómo configurarlas o en su caso deshabilitarlas.</p>
+            <p class="margin-vertical margen_izdo">Una cookie es un pequeño archivo de texto que se almacena en su navegador cuando visita nuestra página web y que guarda información sobre la navegación que realiza. Algunas cookies resultan esenciales para el buen funcionamiento de las páginas web, como es el caso de las cookies técnicas o de personalización de la interfaz de usuario, aunque otras, como las cookies de análisis o las de publicidad comportamental, re-quieren que le informemos y recabar su consentimiento para ser utilizadas por nuestra parte.</p>
+            <p class="margin-vertical margen_izdo">Las cookies técnicas son aquellas que permiten al usuario la navegación a través de una página web, plataforma o aplicación y la utilización de las diferentes opciones o servicios que en ella existan, incluyendo la gestión y operativa de la página web y habi-litar sus funciones y servicios, como, por ejemplo, identificar la sesión, acceder a par-tes de acceso restringido, recordar los elementos que integran un pedido, realizar el proceso de compra de un pedido, gestionar el pago, … La página web no puede funcio-nar adecuadamente sin estas cookies por lo que se consideran necesarias y no requie-ren su consentimiento.</p>
+
+            <p class="margin-vertical margen_izdo">IT Monitor hace uso de dos cookies para el funcionamiento de la aplicación web. A continuación, se nombran y se explican las cookies utilizadas:</p>
+
+            <p class="margin-vertical margen_izdo"> - <b>Idea-abcd123</b>: Cookie técnica necesaria para el funcionamiento de una apicación local desplegada por IntelliJ IDEA.</p>
+            <p class="margin-vertical margen_izdo"> - <b>SESSION</b>: Cookie técnica necesaria para que Spring Security pueda gestionar la sesión de los usuarios y asegurar la autenticación a lo largo de toda la aplicación.</p>
+
+            <p class="margin-vertical margen_izdo">El uso de estas cookies es <b>necesario y obligatorio</b> para asegurar el buen funcionamiento de la aplicación web de IT Monitor. Dado que no tienen fines comerciales, el consentimiento del usuario se obtiene en el mismo instante en el que utiliza la aplicación.</p>
+        </div>
+    </main>
+
+
+    <!--Footer-->
+    <footer>
+        <div class="footer_superior">
+            <nav class="footer_links">
+                <a th:href="@{/legal}">Información legal</a>
+                <hr>
+                <a th:href="@{/privacy}">Privacidad</a>
+            </nav>
+            <nav class="footer_links">
+                <a href="https://www.uc3m.es/inicio/contacta" target="_blank">Dudas y problemas</a>
+                <hr>
+                <a th:href="@{/cookies}">Cookies</a>
+            </nav>
+            <div>
+                <img th:src="@{images/it-monitor-trademark-inverse.png}" alt="Logo IT Monitor" class="logo2">
+            </div>
+        </div>
+        <div class="centrado derechos_reservados">
+            IT Monitor - Todos los derechos reservados 2022 &copy;
+        </div>
+    </footer>
+</body>
+</html>

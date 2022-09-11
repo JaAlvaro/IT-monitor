@@ -54,7 +54,7 @@ public class RegisterController {
                 .flatMap(name -> userService.checkUser(name).flatMap(exists -> exists ? Mono.empty() : Mono.just(name)))
                 .flatMap(usr -> userService.insert(new User(user.name(), user.password(), Util.getDatetime())))
                 .map(result -> {
-                    model.addAttribute("titulo", "Login post-register");
+                    model.addAttribute("titulo", "Login post-registro");
                     return "login";
                 })
                 .switchIfEmpty(Mono.just("redirect:/register?error"));

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cookies</title>
+    <link rel="stylesheet" href="/styles/style.css">
+
+</head>
+<body>
+    <!--Header-->
+    <header>
+        <div class="horizontal header_superior">
+            <a th:href="@{/login}"><img alt="Marca IT Monitor" th:src="@{images/it-monitor-trademark.png}" class="logo margin-vertical"></a>
+            <div th:if="${username == null}" class="margin-vertical logout-div">
+                <h3>No identificado</h3>
+            </div>
+            <div th:if="${username != null}" class="margin-vertical logout-div">
+                <h3 th:inline="text">[[${username}]]</h3>
+                <form th:action="@{/logout}" method="post">
+                    <input type="submit" value="Cerrar sesión" class="btn boton-accion"/>
+                </form>
+            </div>
+        </div>
+        <div class="header_azul"></div>
+    </header>
+
+    <!--Main content-->
+    <main class="min-height">
+        <h1 class="centrado margin-vertical">Cookies</h1>
+        <div class="div-informacion">
+            <p class="margin-vertical margen_izdo">En esta sección se puede ver la información relativa al uso de cookies en IT Monitor.</p>
+            <p class="margin-vertical margen_izdo">En IT Monitor utilizamos las cookies u otros archivos de funcionalidad similar (en adelante, “cookies”) para saber cómo utilizas nuestros servicios y poder mejorarlos. IT Monitor es responsable de las cookies y del tratamiento de los datos obtenidos a través de estas, ya sean propias o de terceros, decidiendo sobre la finalidad, contenido y uso del tratamiento de la información recabada.</p>
+            <p class="margin-vertical margen_izdo">El objetivo de esta política es informarle de manera clara y detallada de qué es una cookie, cuál es su finalidad, qué tipo de cookies utilizamos y cómo configurarlas o en su caso deshabilitarlas.</p>
+            <p class="margin-vertical margen_izdo">Una cookie es un pequeño archivo de texto que se almacena en su navegador cuando visita nuestra página web y que guarda información sobre la navegación que realiza. Algunas cookies resultan esenciales para el buen funcionamiento de las páginas web, como es el caso de las cookies técnicas o de personalización de la interfaz de usuario, aunque otras, como las cookies de análisis o las de publicidad comportamental, re-quieren que le informemos y recabar su consentimiento para ser utilizadas por nuestra parte.</p>
+            <p class="margin-vertical margen_izdo">Las cookies técnicas son aquellas que permiten al usuario la navegación a través de una página web, plataforma o aplicación y la utilización de las diferentes opciones o servicios que en ella existan, incluyendo la gestión y operativa de la página web y habi-litar sus funciones y servicios, como, por ejemplo, identificar la sesión, acceder a par-tes de acceso restringido, recordar los elementos que integran un pedido, realizar el proceso de compra de un pedido, gestionar el pago, … La página web no puede funcio-nar adecuadamente sin estas cookies por lo que se consideran necesarias y no requie-ren su consentimiento.</p>
+
+            <p class="margin-vertical margen_izdo">IT Monitor hace uso de dos cookies para el funcionamiento de la aplicación web. A continuación, se nombran y se explican las cookies utilizadas:</p>
+
+            <p class="margin-vertical margen_izdo"> - <b>Idea-abcd123</b>: Cookie técnica necesaria para el funcionamiento de una apicación local desplegada por IntelliJ IDEA.</p>
+            <p class="margin-vertical margen_izdo"> - <b>SESSION</b>: Cookie técnica necesaria para que Spring Security pueda gestionar la sesión de los usuarios y asegurar la autenticación a lo largo de toda la aplicación.</p>
+            <p class="margin-vertical margen_izdo">El uso de estas cookies es <b>necesario y obligatorio</b> para asegurar el buen funcionamiento de la aplicación web de IT Monitor. Dado que no tienen fines comerciales, el consentimiento del usuario se obtiene en el mismo instante en el que utiliza la aplicación.</p>
+        </div>
+    </main>
+
+
+    <!--Footer-->
+    <footer>
+        <div class="footer_superior">
+            <nav class="footer_links">
+                <a th:href="@{/legal}">Información legal</a>
+                <hr>
+                <a th:href="@{/privacy}">Privacidad</a>
+            </nav>
+            <nav class="footer_links">
+                <a href="https://www.uc3m.es/inicio/contacta" target="_blank">Dudas y problemas</a>
+                <hr>
+                <a th:href="@{/cookies}">Cookies</a>
+            </nav>
+            <div>
+                <img th:src="@{images/it-monitor-trademark-inverse.png}" alt="Logo IT Monitor" class="logo2">
+            </div>
+        </div>
+        <div class="centrado derechos_reservados">
+            IT Monitor - Todos los derechos reservados 2022 &copy;
+        </div>
+    </footer>
+</body>
+</html>

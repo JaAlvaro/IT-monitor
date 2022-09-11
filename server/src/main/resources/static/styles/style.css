@@ -247,6 +247,12 @@ abbr:hover{
     }
 }
 
+.div-informacion {
+    text-align: justify;
+    margin: 2rem auto;
+    width: 90%;
+}
+
 /*--------------------- HEADER ---------------------*/
 .logo {
     max-height: 10rem;

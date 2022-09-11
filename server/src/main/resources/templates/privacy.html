@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Privacidad</title>
+    <link rel="stylesheet" href="/styles/style.css">
+
+</head>
+<body>
+    <!--Header-->
+    <header>
+        <div class="horizontal header_superior">
+            <a th:href="@{/login}"><img alt="Marca IT Monitor" th:src="@{images/it-monitor-trademark.png}" class="logo margin-vertical"></a>
+            <div th:if="${username == null}" class="margin-vertical logout-div">
+                <h3>No identificado</h3>
+            </div>
+            <div th:if="${username != null}" class="margin-vertical logout-div">
+                <h3 th:inline="text">[[${username}]]</h3>
+                <form th:action="@{/logout}" method="post">
+                    <input type="submit" value="Cerrar sesión" class="btn boton-accion"/>
+                </form>
+            </div>
+        </div>
+        <div class="header_azul"></div>
+    </header>
+
+    <!--Main content-->
+    <main class="min-height">
+        <h1 class="centrado margin-vertical">Privacidad de datos</h1>
+        <div class="div-informacion">
+            <p class="margin-vertical margen_izdo">En esta sección se puede ver la información relativa a al privacidad de datos en IT Monitor.</p>
+
+        </div>
+    </main>
+
+
+    <!--Footer-->
+    <footer>
+        <div class="footer_superior">
+            <nav class="footer_links">
+                <a th:href="@{/legal}">Información legal</a>
+                <hr>
+                <a th:href="@{/privacy}">Privacidad</a>
+            </nav>
+            <nav class="footer_links">
+                <a href="https://www.uc3m.es/inicio/contacta" target="_blank">Dudas y problemas</a>
+                <hr>
+                <a th:href="@{/cookies}">Cookies</a>
+            </nav>
+            <div>
+                <img th:src="@{images/it-monitor-trademark-inverse.png}" alt="Logo IT Monitor" class="logo2">
+            </div>
+        </div>
+        <div class="centrado derechos_reservados">
+            IT Monitor - Todos los derechos reservados 2022 &copy;
+        </div>
+    </footer>
+</body>
+</html>

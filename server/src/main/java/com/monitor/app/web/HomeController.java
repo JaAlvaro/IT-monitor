@@ -6,10 +6,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import reactor.core.publisher.Mono;
 
+/**
+ * The type Home controller.
+ */
 @Controller
 public class HomeController {
 
-
+    /**
+     * Home mono.
+     *
+     * @param model the model
+     * @return the mono
+     */
     @GetMapping({"/", "/home"})
     public Mono<String> home(Model model) {
         model.addAttribute("titulo", "Inicio");
@@ -23,10 +31,57 @@ public class HomeController {
                 });
     }
 
+    /**
+     * Cookies mono.
+     *
+     * @param model the model
+     * @return the mono
+     */
+    @GetMapping({"/cookies"})
+    public Mono<String> cookies(Model model) {
 
-    // categorias : cpu, ram, os... en monitor.html. Aquí, listar machines y su laststamp
+        return ReactiveSecurityContextHolder.getContext()
+                .map(ctxt -> {
+                    var username = ctxt.getAuthentication().getName();
+                    model.addAttribute("username", username);
 
-    //Crear llamada de get consent
-    //SCREEN_CONSENT yes default en MACHINE o en única instancia de pantalla
+                    return "cookies";
+                });
+    }
 
+    /**
+     * Privacy mono.
+     *
+     * @param model the model
+     * @return the mono
+     */
+    @GetMapping({"/privacy"})
+    public Mono<String> privacy(Model model) {
+
+        return ReactiveSecurityContextHolder.getContext()
+                .map(ctxt -> {
+                    var username = ctxt.getAuthentication().getName();
+                    model.addAttribute("username", username);
+
+                    return "privacy";
+                });
+    }
+
+    /**
+     * Legal mono.
+     *
+     * @param model the model
+     * @return the mono
+     */
+    @GetMapping({"/legal"})
+    public Mono<String> legal(Model model) {
+
+        return ReactiveSecurityContextHolder.getContext()
+                .map(ctxt -> {
+                    var username = ctxt.getAuthentication().getName();
+                    model.addAttribute("username", username);
+
+                    return "legal";
+                });
+    }
 }

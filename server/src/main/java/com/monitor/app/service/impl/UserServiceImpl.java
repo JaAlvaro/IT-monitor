@@ -58,4 +58,13 @@ public class UserServiceImpl implements UserService {
                 .map(result -> String.valueOf(result).equals("1"));
     }
 
+    @Override
+    public Mono<String> updatePassword(String username, String password) {
+        return Util.getConnection()
+                .flatMapMany(conn -> conn.createStatement("UPDATE user SET PASSWORD = '"+ Util.encrypt(password) + "'  WHERE NAME = '" + username + "'").execute())
+                .flatMap(mySqlResult -> mySqlResult.map((row, metadata) -> row.get(0)))
+                .next()
+                .map(usr -> "SUCCESS - " + username + " password has been changed");
+    }
+
 }

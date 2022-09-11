@@ -6,9 +6,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import reactor.core.publisher.Mono;
 
+/**
+ * The type Login controller.
+ */
 @Controller
 public class LoginController {
 
+    /**
+     * Login mono.
+     *
+     * @param model the model
+     * @return the mono
+     */
     @GetMapping({"/login"})
     public Mono<String> login(Model model) {
 

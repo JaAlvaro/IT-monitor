@@ -2,7 +2,7 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Inicio</title>
+    <title>Cuenta de usuario</title>
     <link rel="stylesheet" href="/styles/style.css">
 </head>
 <body>
@@ -21,45 +21,77 @@
     </header>
 
     <!--Main content-->
-    <main>
-        <h1 th:text="${titulo}" class="centrado margin-vertical"></h1>
-        <div class="contenedor-inicio">
-            <div class="horizontal">
-                <div class="boton-grande-div">
+    <!-- CUERPO DE LA PAGINA -->
+    <main class="min-height">
+
+        <!-- COLUMNAS -->
+        <div class="horizontal cuerpo">
+
+            <!-- COLUMNA CENTRAL -->
+            <section class="columna col_central esquinas_curvadas py-4">
+
+                <h1 class="centrado">Cuenta de usuario</h1>
+                <div class="contenedor-inicio">
+                    <div class="datos-equipo-div">
+                        <div>
+                            <p><b>Usuario:</b></p>
+                            <p th:text="${user.name}"></p>
+                        </div>
+                        <div>
+                            <p><b>Fecha de creación: </b></p>
+                            <p th:text="${user.register_date}"></p>
+                        </div>
+                    </div>
+                    <div class="horizontal">
+                        <div class="boton-grande-div">
+                            <a th:href="@{/change-password}">
+                                <button class="btn boton-icono-grande">
+                                    <img th:src="@{/images/password.png}" width="200" alt="Cambiar contraseña" class="">
+                                </button>
+                            </a>
+                            <p>Cambiar contraseña</p>
+                        </div>
+                        <div class="boton-grande-div">
+                            <a th:href="@{/delete-account}">
+                                <button class="btn boton-icono-grande">
+                                    <img th:src="@{/images/delete.png}" width="200" alt="Eliminar cuenta" class="">
+                                </button>
+                            </a>
+                            <p>Eliminar cuenta</p>
+                        </div>
+                    </div>
+                </div>
+
+
+            </section>
+
+
+            <!-- COLUMNA DERECHA -->
+            <section class="columna col_lateral esquinas_curvadas py-4">
+                <h1 class="centrado">Accesos</h1>
+                <div class="horizontal">
                     <a th:href="@{/account}">
-                        <button class="btn boton-icono-grande">
+                        <button class="btn boton-acceso">
                             <img th:src="@{images/user.png}" width="200" alt="Cuenta de usuario" class="">
                         </button>
                     </a>
-                    <p>Cuenta de usuario</p>
-                </div>
-                <div class="boton-grande-div">
                     <a th:href="@{/machines}">
-                        <button class="btn boton-icono-grande">
+                        <button class="btn boton-acceso">
                             <img th:src="@{images/machine.png}" width="200" alt="Ordenadores" class="">
                         </button>
                     </a>
-                    <p>Ordenadores</p>
-                </div>
-            </div>
-            <div class="horizontal">
-                <div class="boton-grande-div">
                     <a th:href="@{/client}">
-                        <button class="btn boton-icono-grande">
+                        <button class="btn boton-acceso">
                             <img th:src="@{images/download.png}" width="200" alt="Aplicacion cliente" class="">
                         </button>
                     </a>
-                    <p>Aplicación cliente</p>
-                </div>
-                <div class="boton-grande-div">
                     <a th:href="@{/register-machine}">
-                        <button class="btn boton-icono-grande">
+                        <button class="btn boton-acceso">
                             <img th:src="@{images/register.png}" width="200" alt="Registrar equipo" class="">
                         </button>
                     </a>
-                    <p>Registrar equipo</p>
                 </div>
-            </div>
+            </section>
         </div>
     </main>
 

@@ -14,6 +14,9 @@ import reactor.core.publisher.Mono;
 
 import java.util.List;
 
+/**
+ * The type Machine controller.
+ */
 @Controller
 @Slf4j
 public class MachineController {
@@ -33,6 +36,12 @@ public class MachineController {
     @Autowired
     private BatteryServiceImpl batteryService;
 
+    /**
+     * Machines mono.
+     *
+     * @param model the model
+     * @return the mono
+     */
     @GetMapping({"machines"})
     public Mono<String> machines(Model model) {
         model.addAttribute("titulo", "Equipos");
@@ -50,6 +59,13 @@ public class MachineController {
                 });
     }
 
+    /**
+     * Machine mono.
+     *
+     * @param model the model
+     * @param id    the id
+     * @return the mono
+     */
     @GetMapping({"machine/{id}"})
     public Mono<String> machine(Model model, @PathVariable String id) {
 
@@ -68,6 +84,13 @@ public class MachineController {
                 .switchIfEmpty(Mono.just("redirect:/home?error"));
     }
 
+    /**
+     * Cpu mono.
+     *
+     * @param model the model
+     * @param id    the id
+     * @return the mono
+     */
     @GetMapping({"cpu/{id}"})
     public Mono<String> cpu(Model model, @PathVariable String id) {
 
@@ -89,6 +112,13 @@ public class MachineController {
                 .switchIfEmpty(Mono.just("redirect:/home?error"));
     }
 
+    /**
+     * Os mono.
+     *
+     * @param model the model
+     * @param id    the id
+     * @return the mono
+     */
     @GetMapping({"os/{id}"})
     public Mono<String> os(Model model, @PathVariable String id) {
 
@@ -113,6 +143,13 @@ public class MachineController {
                 .switchIfEmpty(Mono.just("redirect:/home?error"));
     }
 
+    /**
+     * Battery mono.
+     *
+     * @param model the model
+     * @param id    the id
+     * @return the mono
+     */
     @GetMapping({"battery/{id}"})
     public Mono<String> battery(Model model, @PathVariable String id) {
 
@@ -134,6 +171,13 @@ public class MachineController {
                 .switchIfEmpty(Mono.just("redirect:/home?error"));
     }
 
+    /**
+     * Control mono.
+     *
+     * @param model the model
+     * @param id    the id
+     * @return the mono
+     */
     @GetMapping({"control/{id}"})
     public Mono<String> control(Model model, @PathVariable String id) {
 

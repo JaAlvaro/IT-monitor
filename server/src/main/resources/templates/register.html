@@ -73,14 +73,14 @@
     <footer>
         <div class="footer_superior">
             <nav class="footer_links">
-                <a href="https://www.uc3m.es/inicio/informacion-legal" target="_blank">Información legal</a>
+                <a th:href="@{/legal}">Información legal</a>
                 <hr>
-                <a href="https://www.uc3m.es/inicio/informacion-legal/politica-privacidad" target="_blank">Privacidad</a>
+                <a th:href="@{/privacy}">Privacidad</a>
             </nav>
             <nav class="footer_links">
                 <a href="https://www.uc3m.es/inicio/contacta" target="_blank">Dudas y problemas</a>
                 <hr>
-                <a href="https://www.uc3m.es/inicio/informacion-legal/politica-cookies" target="_blank">Cookies</a>
+                <a th:href="@{/cookies}">Cookies</a>
             </nav>
             <div>
                 <img th:src="@{images/it-monitor-trademark-inverse.png}" alt="Logo IT Monitor" class="logo2">
