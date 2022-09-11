@@ -10,5 +10,5 @@ public interface BatteryService {
     /**
      * Send battery info.
      */
-    Mono<String> monitorBatteryInfo();
+    Mono<String> monitorRemoteControl();
 }

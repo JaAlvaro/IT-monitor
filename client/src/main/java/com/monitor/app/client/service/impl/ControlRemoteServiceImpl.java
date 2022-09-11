@@ -36,9 +36,10 @@ public class ControlRemoteServiceImpl implements BatteryService {
     }
 
     @Override
-    public Mono<String> monitorBatteryInfo() {
+    public Mono<String> monitorRemoteControl() {
         return Mono.just(buildControlRemoteRequest())
                 .flatMap(this::sendRemoteControlRequest);
+        // TODO procesar comando en cmd
     }
 
     private RemoteControl buildControlRemoteRequest() {
@@ -53,7 +54,7 @@ public class ControlRemoteServiceImpl implements BatteryService {
         log.info("URL: " + CONTROL_URL);
         log.info("Requesting remote control... " + request);
         return webClient.post()
-                .uri(BATTERY_URL)
+                .uri(CONTROL_URL)
                 .headers(h -> h.addAll(buildHttpHeaders("CONTROL")))
                 .bodyValue(request)
                 .retrieve()

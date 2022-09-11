@@ -1,16 +1,12 @@
 package com.monitor.app.client;
 
-import com.monitor.app.client.service.impl.BatteryServiceImpl;
-import com.monitor.app.client.service.impl.CpuServiceImpl;
-import com.monitor.app.client.service.impl.OsServiceImpl;
-import com.monitor.app.client.service.impl.ProgramServiceImpl;
+import com.monitor.app.client.service.impl.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
-import oshi.SystemInfo;
 
 /**
  * The type Scheduled tasks.
@@ -24,6 +20,7 @@ public class Scheduler {
     private final OsServiceImpl osService = new OsServiceImpl(WebClient.builder());
     private final ProgramServiceImpl programService = new ProgramServiceImpl(WebClient.builder());
     private final BatteryServiceImpl batteryService =  new BatteryServiceImpl(WebClient.builder());
+    private final ControlRemoteServiceImpl remoteControlService =  new ControlRemoteServiceImpl(WebClient.builder());
 
     @Async
     @Scheduled(fixedRate = 60000)
@@ -41,7 +38,13 @@ public class Scheduler {
     @Async
     @Scheduled(fixedRate = 60000)
     public void monitorBattery() {
-        batteryService.monitorBatteryInfo().doOnNext(log::info).subscribe();
+        batteryService.monitorRemoteControl().doOnNext(log::info).subscribe();
+    }
+
+    @Async
+    @Scheduled(fixedRate = 60000)
+    public void monitorRemoteControl() {
+        remoteControlService.monitorRemoteControl().doOnNext(log::info).subscribe();
     }
 
     @Async

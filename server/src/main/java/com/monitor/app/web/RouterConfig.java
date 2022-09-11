@@ -1,9 +1,6 @@
 package com.monitor.app.web;
 
-import com.monitor.app.web.handler.BatteryHandler;
-import com.monitor.app.web.handler.CpuHandler;
-import com.monitor.app.web.handler.OsHandler;
-import com.monitor.app.web.handler.ProgramHandler;
+import com.monitor.app.web.handler.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.server.RouterFunction;
@@ -67,5 +64,16 @@ public class RouterConfig {
     @Bean
     public RouterFunction<ServerResponse> batteryRoutes(BatteryHandler handler) {
         return route(POST("/api/battery"), handler::handleBatteryRequest);
+    }
+
+    /**
+     * Control routes router function.
+     *
+     * @param handler the handler
+     * @return the router function
+     */
+    @Bean
+    public RouterFunction<ServerResponse> controlRoutes(ControlHandler handler) {
+        return route(POST("/api/control"), handler::handleRemoteControlRequest);
     }
 }

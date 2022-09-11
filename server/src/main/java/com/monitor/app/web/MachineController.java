@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
+
 @Controller
 @Slf4j
 public class MachineController {
@@ -128,6 +130,28 @@ public class MachineController {
                     model.addAttribute("measures", battery);
 
                     return "battery";
+                })
+                .switchIfEmpty(Mono.just("redirect:/home?error"));
+    }
+
+    @GetMapping({"control/{id}"})
+    public Mono<String> control(Model model, @PathVariable String id) {
+
+        return ReactiveSecurityContextHolder.getContext()
+                .flatMap(ctxt -> machineService.checkOwnership(id, ctxt.getAuthentication().getName())
+                        .flatMap(isValid -> isValid ? Mono.just(ctxt) : Mono.empty()))
+                .map(ctxt -> {
+                    var username = ctxt.getAuthentication().getName();
+                    model.addAttribute("username", username);
+
+                    Mono<Machine> machine = machineService.find(id);
+                    model.addAttribute("machine", machine);
+
+                    //Flux<RemoteControl> control = remoteControlService.find(id);
+                    var control = Flux.just(List.of());
+                    model.addAttribute("commands", control);
+
+                    return "control";
                 })
                 .switchIfEmpty(Mono.just("redirect:/home?error"));
     }

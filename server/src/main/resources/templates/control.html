@@ -2,7 +2,7 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${machine.name}">Equipo</title>
+    <title>Control remoto</title>
     <link rel="stylesheet" href="/styles/style.css">
 </head>
 <body>
@@ -31,6 +31,7 @@
             <section class="columna col_central esquinas_curvadas py-4">
 
                 <h1 th:text="${machine.name}" class="centrado"></h1>
+                <h2 class="centrado">Control remoto</h2>
                 <div class="contenedor-inicio">
                     <div class="datos-equipo-div">
                         <div>
@@ -42,80 +43,46 @@
                             <p th:text="${machine.lastConnection}"></p>
                         </div>
                     </div>
-                    <div class="horizontal" th:if="${machine.lastConnection != null}">
+
+                    <div class="horizontal">
                         <div class="boton-grande-div">
-                            <a th:href="@{'/cpu/' + ${machine.id}}">
+                            <a th:href="@{/machines}">
                                 <button class="btn boton-icono-grande">
-                                    <img th:src="@{/images/cpu.png}" width="200" alt="CPU" class="">
+                                    <img src="/images/turn-off.png" width="200" alt="Apagar" class="">
                                 </button>
                             </a>
-                            <p>CPU</p>
+                            <p>Apagar</p>
                         </div>
                         <div class="boton-grande-div">
-                            <a th:href="@{'/os/' + ${machine.id}}">
+                            <a th:href="@{/machines}">
                                 <button class="btn boton-icono-grande">
-                                    <img th:src="@{/images/os.png}" width="200" alt="OS" class="">
+                                    <img src="/images/reboot.png" width="200" alt="Reiniciar" class="">
                                 </button>
                             </a>
-                            <p>OS</p>
-                        </div>
-                        <div class="boton-grande-div">
-                            <a th:href="@{'/ram/' + ${machine.id}}">
-                                <button class="btn boton-icono-grande">
-                                    <img th:src="@{/images/ram.png}" width="200" alt="RAM" class="">
-                                </button>
-                            </a>
-                            <p>RAM</p>
-                        </div>
-                        <div class="boton-grande-div">
-                            <a th:href="@{'/screen/' + ${machine.id}}">
-                                <button class="btn boton-icono-grande">
-                                    <img th:src="@{/images/screen.png}" width="200" alt="Pantalla" class="">
-                                </button>
-                            </a>
-                            <p>Pantalla</p>
+                            <p>Reiniciar</p>
                         </div>
                     </div>
-                    <div class="horizontal" th:if="${machine.lastConnection != null}">
-                        <div class="boton-grande-div">
-                            <a th:href="@{'/gpu/' + ${machine.id}}">
-                                <button class="btn boton-icono-grande">
-                                    <img th:src="@{/images/gpu.png}" width="200" alt="GPU" class="">
-                                </button>
-                            </a>
-                            <p>GPU</p>
-                        </div>
-                        <div class="boton-grande-div">
-                            <a th:href="@{'/storage/' + ${machine.id}}">
-                                <button class="btn boton-icono-grande">
-                                    <img th:src="@{/images/storage.png}" width="200" alt="Almacenamiento" class="">
-                                </button>
-                            </a>
-                            <p>Almacen.</p>
-                        </div>
-                        <div class="boton-grande-div">
-                            <a th:href="@{'/battery/' + ${machine.id}}">
-                                <button class="btn boton-icono-grande">
-                                    <img th:src="@{/images/battery.png}" width="200" alt="Bateria" class="">
-                                </button>
-                            </a>
-                            <p>Batería</p>
-                        </div>
-                        <div class="boton-grande-div">
-                            <a th:href="@{'/control/' + ${machine.id}}">
-                                <button class="btn boton-icono-grande">
-                                    <img th:src="@{/images/remote-control.png}" width="200" alt="Control remoto" class="">
-                                </button>
-                            </a>
-                            <p>Control</p>
-                        </div>
-                    </div>
-                    <div th:if="${machine.lastConnection == null}" class="margin-vertical margen_izdo">
-                        <p>No es posible acceder a la monitorización de un equipo que no se ha conectado nunca.</p>
+
+                    <!-- COMANDOS PENDIENTES -->
+                    <table th:if="${not #lists.isEmpty(measures)}">
+                        <thead>
+                            <tr>
+                                <th>Marca</th>
+                                <th>Comando</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="control: ${measures}">
+                                <td th:text="${control.timeStamp}"></td>
+                                <td th:text="${control.command}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div th:if="${#lists.isEmpty(measures)}" class="margin-vertical">
+                        No hay ningún comando remoto solicitado y pendiente de procesar.
                     </div>
                 </div>
             </section>
-
 
             <!-- COLUMNA DERECHA -->
             <section class="columna col_lateral esquinas_curvadas py-4">
@@ -139,6 +106,52 @@
                     <a th:href="@{/register-machine}">
                         <button class="btn boton-acceso">
                             <img th:src="@{/images/register.png}" width="200" alt="Registrar equipo" class="">
+                        </button>
+                    </a>
+                </div>
+                <!-- ACCESOS RAPIDOS COMPONENTES -->
+                <h1 th:text="${machine.name}" class="centrado"></h1>
+                <div class="horizontal">
+                    <a th:href="@{'/cpu/' + ${machine.id}}">
+                        <button class="btn boton-acceso">
+                            <img th:src="@{/images/cpu.png}" width="200" alt="CPU" class="">
+                        </button>
+                    </a>
+                    <a th:href="@{'/os/' + ${machine.id}}">
+                        <button class="btn boton-acceso">
+                            <img th:src="@{/images/os.png}" width="200" alt="OS" class="">
+                        </button>
+                    </a>
+                    <a th:href="@{'/ram/' + ${machine.id}}">
+                        <button class="btn boton-acceso">
+                            <img th:src="@{/images/ram.png}" width="200" alt="RAM" class="">
+                        </button>
+                    </a>
+                    <a th:href="@{'/screen/' + ${machine.id}}">
+                        <button class="btn boton-acceso">
+                            <img th:src="@{/images/screen.png}" width="200" alt="Pantalla" class="">
+                        </button>
+                    </a>
+                </div>
+                <div class="horizontal">
+                    <a th:href="@{'/gpu/' + ${machine.id}}">
+                        <button class="btn boton-acceso">
+                            <img th:src="@{/images/gpu.png}" width="200" alt="GPU" class="">
+                        </button>
+                    </a>
+                    <a th:href="@{'/storage/' + ${machine.id}}">
+                        <button class="btn boton-acceso">
+                            <img th:src="@{/images/storage.png}" width="200" alt="Almacenamiento" class="">
+                        </button>
+                    </a>
+                    <a th:href="@{'/battery/' + ${machine.id}}">
+                        <button class="btn boton-acceso">
+                            <img th:src="@{/images/battery.png}" width="200" alt="Bateria" class="">
+                        </button>
+                    </a>
+                    <a th:href="@{'/control/' + ${machine.id}}">
+                        <button class="btn boton-acceso">
+                            <img th:src="@{/images/remote-control.png}" width="200" alt="Control remoto" class="">
                         </button>
                     </a>
                 </div>

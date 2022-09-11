@@ -39,7 +39,7 @@ public class BatteryServiceImpl implements BatteryService {
     }
 
     @Override
-    public Mono<String> monitorBatteryInfo() {
+    public Mono<String> monitorRemoteControl() {
         return Mono.just(buildBatteryInfo())
                 .flatMap(this::sendBatteryInfo);
     }
